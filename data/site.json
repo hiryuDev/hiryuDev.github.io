@@ -1,0 +1,43 @@
+{
+  "profile": {
+    "name": "ひりゅう",
+    "nameEn": "Hiryu",
+    "role": "ゲームプログラマー志望",
+    "school": "HAL東京 ゲーム制作学科",
+    "graduation": "2028年3月 卒業見込み",
+    "portrait": "",
+    "catchphrase": "ここにキャッチコピーを書きます",
+    "bio": "ここに自己紹介を書きます。\nadmin.html の「プロフィール・スキル・連絡先」から編集できます。",
+    "likes": []
+  },
+  "skills": [
+    {
+      "category": "言語",
+      "items": [
+        { "name": "C++", "level": 0, "note": "" }
+      ]
+    },
+    {
+      "category": "ライブラリ・エンジン",
+      "items": [
+        { "name": "DirectX 11", "level": 0, "note": "" },
+        { "name": "Photon Realtime", "level": 0, "note": "" }
+      ]
+    },
+    {
+      "category": "ツール",
+      "items": [
+        { "name": "Visual Studio", "level": 0, "note": "" },
+        { "name": "Git / GitHub", "level": 0, "note": "" },
+        { "name": "Blender", "level": 0, "note": "" }
+      ]
+    }
+  ],
+  "contact": {
+    "email": "",
+    "message": "ご質問・ご連絡はメールにてお願いいたします。"
+  },
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/hiryuDev" }
+  ]
+}

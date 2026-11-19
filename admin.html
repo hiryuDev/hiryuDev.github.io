@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>船長室（編集画面） ― 航海日誌</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&display=swap">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="a-header">
+    <div class="a-header__inner">
+      <h1 class="a-title">
+        <svg aria-hidden="true"><use href="images/icons.svg#i-helm"/></svg>
+        船長室<small>ポートフォリオ編集画面</small>
+      </h1>
+      <a class="a-link" href="index.html" target="_blank" rel="noopener">公開サイトを開く</a>
+    </div>
+  </header>
+
+  <main class="a-main">
+
+    <!-- ===== 接続 ===== -->
+    <section class="panel" id="connectPanel" aria-labelledby="connectTitle">
+      <h2 id="connectTitle">GitHubに接続</h2>
+      <p class="hint">
+        保存にはこのリポジトリへの書き込み権限があるトークンが必要です。トークンを持っていない人はこの画面を開けても保存できません。
+        トークンはこのブラウザの中にだけ保存され、どこにも送信されません（GitHubへの保存時を除く）。作り方は README の「編集画面の準備」を見てください。
+      </p>
+      <form class="connect" id="connectForm" autocomplete="off">
+        <label>ユーザー名 / Organization
+          <input name="owner" required placeholder="hiryuDev">
+        </label>
+        <label>リポジトリ名
+          <input name="repo" required placeholder="hiryuDev.github.io">
+        </label>
+        <label>ブランチ
+          <input name="branch" required placeholder="main">
+        </label>
+        <label class="connect__token">アクセストークン
+          <input name="token" type="password" required placeholder="github_pat_…" autocomplete="off">
+        </label>
+        <label class="check"><input type="checkbox" name="remember"> このブラウザに記憶する（自分専用のPCのときだけ）</label>
+        <div class="connect__actions">
+          <button class="btn btn--primary" type="submit">接続する</button>
+          <button class="btn" type="button" id="offlineBtn">接続せずに編集する</button>
+        </div>
+      </form>
+      <div class="connected" id="connectedInfo" hidden>
+        <p><span class="dot" aria-hidden="true"></span><strong id="connectedRepo"></strong> に接続中</p>
+        <button class="btn btn--small" type="button" id="disconnectBtn">接続を解除してトークンを消す</button>
+      </div>
+      <p class="status" id="connectStatus" role="status"></p>
+    </section>
+
+    <!-- ===== 編集 ===== -->
+    <section class="workspace" id="workspace" hidden>
+      <div class="tabs" role="tablist" aria-label="編集する内容">
+        <button role="tab" id="tabWorks" aria-controls="viewWorks" aria-selected="true">作品</button>
+        <button role="tab" id="tabSite" aria-controls="viewSite" aria-selected="false" tabindex="-1">プロフィール・スキル・連絡先</button>
+      </div>
+
+      <!-- 作品一覧 -->
+      <div class="view" id="viewWorks" role="tabpanel" aria-labelledby="tabWorks">
+        <div class="view__head">
+          <p class="hint">並び順がそのままサイトの表示順になります。「公開」を外した作品はサイトに出ません。</p>
+          <button class="btn btn--primary" type="button" id="addWork">作品を追加</button>
+        </div>
+        <ol class="work-rows" id="workRows"></ol>
+        <p class="empty-note" id="noWorks" hidden>まだ作品がありません。「作品を追加」から1件目を登録しましょう。</p>
+      </div>
+
+      <!-- 作品の編集フォーム -->
+      <div class="view" id="viewEditor" hidden>
+        <div class="view__head">
+          <h2 id="editorTitle">作品を編集</h2>
+          <button class="btn" type="button" id="editorBack">一覧に戻る（反映しない）</button>
+        </div>
+        <form id="workForm" class="form" novalidate></form>
+        <div class="form-foot">
+          <button class="btn btn--primary" type="button" id="applyWork">この内容で一覧に反映</button>
+          <a class="a-link" id="draftPreview" href="#" target="_blank" rel="noopener" hidden>保存後に下書きをプレビュー</a>
+        </div>
+      </div>
+
+      <!-- サイト情報 -->
+      <div class="view" id="viewSite" role="tabpanel" aria-labelledby="tabSite" hidden>
+        <form id="siteForm" class="form" novalidate></form>
+      </div>
+    </section>
+  </main>
+
+  <!-- 保存バー -->
+  <div class="savebar" id="savebar" hidden>
+    <p class="savebar__msg" id="saveMsg" role="status">未保存の変更があります</p>
+    <div class="savebar__actions">
+      <button class="btn" type="button" id="exportBtn">JSONを書き出す</button>
+      <button class="btn btn--primary" type="button" id="saveBtn">保存して公開</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
