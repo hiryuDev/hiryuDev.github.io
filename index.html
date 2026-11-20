@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>航海日誌 ― ひりゅう ゲームプログラマー ポートフォリオ</title>
+  <title>ひりゅう ゲームプログラマー ポートフォリオ</title>
   <meta name="description" content="ゲームプログラマー志望 ひりゅうのポートフォリオ。制作したゲーム、担当箇所、使用技術、技術的な工夫をまとめています。">
   <!-- OGP（SNSで共有したときの表示）。公開URLが決まったら og:url と og:image を書き換える -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="航海日誌 ― ひりゅう ゲームプログラマー ポートフォリオ">
+  <meta property="og:title" content="ひりゅう ゲームプログラマー ポートフォリオ">
   <meta property="og:description" content="ゲームプログラマー志望 ひりゅうのポートフォリオ">
   <meta property="og:url" content="https://hiryudev.github.io/">
   <meta name="theme-color" content="#140b0b">
@@ -23,7 +23,7 @@
   <a class="skip-link" href="#log">本文へ移動</a>
 
   <!-- ===== 表紙（最初に表示。JSが無効なら出ない） ===== -->
-  <div class="cover-stage" id="cover" aria-label="航海日誌の表紙">
+  <div class="cover-stage" id="cover" aria-label="表紙">
     <div class="cover-stage__glow" aria-hidden="true"></div>
     <div class="book" id="book">
       <div class="book__page" aria-hidden="true">
@@ -32,7 +32,7 @@
 コードを武器に挑んだ航海の記録である。</p>
         <svg class="book__page-mark"><use href="images/icons.svg#i-compass"/></svg>
       </div>
-      <button class="book__cover" id="openBook" type="button" aria-label="航海日誌を開いてポートフォリオを見る">
+      <button class="book__cover" id="openBook" type="button" aria-label="表紙を開いてポートフォリオを見る">
         <span class="cover__frame" aria-hidden="true">
           <svg class="cover__corner cover__corner--tl"><use href="images/icons.svg#i-corner"/></svg>
           <svg class="cover__corner cover__corner--tr"><use href="images/icons.svg#i-corner"/></svg>
@@ -55,7 +55,7 @@
       <span class="book__ribbon" aria-hidden="true"></span>
     </div>
     <p class="cover-stage__hint" data-bind="texts.cover.hint">表紙をクリックして日誌を開く</p>
-    <button class="cover-stage__skip" id="skipCover" type="button">表紙を飛ばして読む</button>
+    <button class="cover-stage__skip" id="skipCover" type="button">表紙をスキップ</button>
   </div>
 
   <!-- ===== ヘッダー ===== -->
@@ -88,7 +88,7 @@
 
     <!-- ===== 序：はじめに ===== -->
     <article class="sheet sheet--intro" id="top" aria-labelledby="introTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>序</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>はじめに</span></div>
 
       <div class="intro">
         <p class="intro__latin" data-bind="texts.intro.latin">The log of a game programmer</p>
@@ -102,7 +102,7 @@
       </div>
 
       <!-- 航海図ナビゲーション -->
-      <nav class="chart" aria-label="航海図（各ページへ移動）">
+      <nav class="chart" aria-label="各ページへの案内図">
         <svg class="chart__sea" viewBox="0 0 800 330" preserveAspectRatio="none" aria-hidden="true">
           <g class="chart__grid">
             <path d="M0 82H800M0 165H800M0 248H800M160 0V330M320 0V330M480 0V330M640 0V330"/>
@@ -121,14 +121,13 @@
         </ol>
       </nav>
 
-      <div class="sheet__folio" aria-hidden="true">序</div>
     </article>
 
     <div class="between" aria-hidden="true"><svg><use href="images/icons.svg#i-anchor"/></svg></div>
 
     <!-- ===== 壱：プロフィール ===== -->
     <section class="sheet" id="profile" aria-labelledby="profileTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第壱頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>1 / 4</span></div>
       <h2 class="sheet__title" id="profileTitle">
         <span class="sheet__title-theme" data-bind="texts.chapters.profile.title">船長の素性</span>
         <span class="sheet__title-plain" data-bind="texts.chapters.profile.plain">プロフィール</span>
@@ -156,14 +155,14 @@
         </div>
       </div>
 
-      <div class="sheet__folio" aria-hidden="true">壱</div>
+      <div class="sheet__folio" aria-hidden="true">1</div>
     </section>
 
     <div class="between" aria-hidden="true"><svg><use href="images/icons.svg#i-anchor"/></svg></div>
 
     <!-- ===== 弐：作品 ===== -->
     <section class="sheet sheet--works" id="works" aria-labelledby="worksTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第弐頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>2 / 4</span></div>
       <h2 class="sheet__title" id="worksTitle">
         <span class="sheet__title-theme" data-bind="texts.chapters.works.title">戦果の記録</span>
         <span class="sheet__title-plain" data-bind="texts.chapters.works.plain">制作作品</span>
@@ -178,30 +177,30 @@
         <p class="empty__text" data-bind="texts.worksEmpty.text">船長はいま航海の真っ最中。戦果が積み込まれるまで、しばしお待ちを。</p>
       </div>
 
-      <div class="sheet__folio" aria-hidden="true">弐</div>
+      <div class="sheet__folio" aria-hidden="true">2</div>
     </section>
 
     <div class="between" aria-hidden="true"><svg><use href="images/icons.svg#i-anchor"/></svg></div>
 
     <!-- ===== 参：スキル ===== -->
     <section class="sheet" id="skills" aria-labelledby="skillsTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第参頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>3 / 4</span></div>
       <h2 class="sheet__title" id="skillsTitle">
         <span class="sheet__title-theme" data-bind="texts.chapters.skills.title">武装と航海術</span>
         <span class="sheet__title-plain" data-bind="texts.chapters.skills.plain">スキル・使用技術</span>
       </h2>
       <p class="skills__legend" id="skillsLegend" hidden>
-        金貨の枚数は習熟度の目安です（5枚で最大）。
+        コインの数は習熟度の目安です（5段階）。
       </p>
       <div class="armory" id="skillList"></div>
-      <div class="sheet__folio" aria-hidden="true">参</div>
+      <div class="sheet__folio" aria-hidden="true">3</div>
     </section>
 
     <div class="between" aria-hidden="true"><svg><use href="images/icons.svg#i-anchor"/></svg></div>
 
     <!-- ===== 肆：連絡先 ===== -->
     <section class="sheet sheet--contact" id="contact" aria-labelledby="contactTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第肆頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>4 / 4</span></div>
       <h2 class="sheet__title" id="contactTitle">
         <span class="sheet__title-theme" data-bind="texts.chapters.contact.title">寄港の手紙</span>
         <span class="sheet__title-plain" data-bind="texts.chapters.contact.plain">連絡先</span>
@@ -214,7 +213,7 @@
         </a>
         <ul class="harbors" id="linkList"></ul>
       </div>
-      <div class="sheet__folio" aria-hidden="true">肆</div>
+      <div class="sheet__folio" aria-hidden="true">4</div>
     </section>
   </main>
 

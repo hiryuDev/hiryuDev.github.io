@@ -38,6 +38,7 @@
   function showCover() {
     stage.hidden = false;
     void stage.offsetWidth;
+    fitCover();
     stage.classList.remove('is-gone', 'is-opening', 'is-entering');
     stage.removeAttribute('aria-hidden');
     document.body.classList.add('cover-open');
@@ -65,6 +66,37 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.body.classList.contains('cover-open')) finishCover();
   });
+
+  /* 表紙の文字が長いときは、枠からはみ出さないよう自動で小さくする */
+  function fitLine(el, min) {
+    if (!el || !el.clientWidth) return;
+    el.style.fontSize = '';
+    el.style.whiteSpace = 'nowrap';
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    while (el.scrollWidth > el.clientWidth + 1 && size > min) { size -= 1; el.style.fontSize = `${size}px`; }
+    if (el.scrollWidth > el.clientWidth + 1) el.style.whiteSpace = 'normal'; // それでも入らなければ折り返す
+  }
+  function fitBox(box, text, min) {
+    if (!box || !text || !box.clientHeight) return;
+    text.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(text).fontSize);
+    while (box.scrollHeight > box.clientHeight + 1 && size > min) { size -= .5; text.style.fontSize = `${size}px`; }
+  }
+  function fitCover() {
+    if (stage.hidden) return;
+    const q = (s) => stage.querySelector(s);
+    // タイトルが長いときは字間を詰める（短いときは広めの字間のまま）
+    const title = q('.cover__title');
+    const long = title && [...title.textContent].length > 5;
+    if (title) { title.style.letterSpacing = long ? '.06em' : ''; title.style.marginRight = long ? '-.06em' : ''; }
+    fitLine(q('.cover__latin'), 11);
+    fitLine(q('.cover__title'), 18);
+    fitLine(q('.cover__sub'), 9);
+    fitLine(q('.cover__owner'), 12);
+    fitBox(q('.book__page'), q('.book__page-text'), 10);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitCover);
+  addEventListener('resize', () => { if (!stage.hidden) fitCover(); });
 
   /* ---------- ナビゲーション ---------- */
   const navToggle = $('navToggle');
@@ -117,6 +149,7 @@
       renderWorks(publishedWorks(works));
       renderSkills(site.skills || []);
       renderContact(site.contact || {}, site.links || []);
+      fitCover();
       if (location.hash) { const t = document.querySelector(location.hash); if (t) t.scrollIntoView(); }
     })
     .catch((err) => {
@@ -169,9 +202,9 @@
           w.genre ? h('p', { class: 'entry__genre', text: w.genre }) : null,
           w.summary ? h('p', { class: 'entry__summary', text: w.summary }) : null,
           meta.length ? h('dl', { class: 'entry__meta' }, meta.map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { text: v })))) : null,
-          h('a', { class: 'seal-link', href: workUrl(w), 'aria-label': `${w.title || w.id} の詳しい記録を読む` },
+          h('a', { class: 'seal-link', href: workUrl(w), 'aria-label': `${w.title || w.id} の詳細を見る` },
             h('span', { class: 'seal-link__seal', 'aria-hidden': 'true' }, icon('i-quill', 'seal-link__icon')),
-            h('span', { text: '詳しい記録を読む' }))));
+            h('span', { text: '詳細を見る' }))));
       list.append(li);
     });
 

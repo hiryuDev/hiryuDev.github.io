@@ -63,6 +63,12 @@ a { color: inherit; }
 button { font: inherit; color: inherit; }
 h1, h2, h3, h4 { margin: 0; font-family: var(--f-display); font-weight: 700; line-height: 1.35; }
 p { margin: 0; }
+/* 日本語の改行を文節の切れ目で行う（Chrome / Edge）。行末の約物の扱いも厳しめに */
+body { line-break: strict; }
+h1, h2, h3, .intro__catch, .intro__lead, .intro__school, .empty__title, .empty__text,
+.site-footer__end, .entry__summary, .work-head__subtitle, .isle__name, .isle__plain, .letter__message { word-break: auto-phrase; }
+.intro__lead, .intro__catch, .empty__text, .site-footer__end { text-wrap: balance; }
+.prose { text-wrap: pretty; }
 
 :focus-visible {
   outline: 2px solid var(--gold-bright);
@@ -128,15 +134,16 @@ p { margin: 0; }
   position: absolute; inset: 6px 4px 6px 10px;
   border-radius: 2px 6px 6px 2px;
   padding: 18% 12%;
-  display: flex; flex-direction: column; gap: 1.2em; justify-content: center;
-  color: var(--ink); font-size: clamp(13px, 3.4vw, 15px); line-height: 2;
+  display: flex; flex-direction: column; gap: 1.2em; justify-content: safe center;
+  overflow: hidden;
+  color: var(--ink); font-size: clamp(13px, 3.4vw, 15px); line-height: 1.9;
   background:
     radial-gradient(ellipse at 20% 50%, rgba(80, 45, 10, .25), transparent 55%),
     var(--parchment-tex) 0 0 / 512px 512px,
     var(--parchment);
   box-shadow: inset 14px 0 24px -12px rgba(60, 30, 5, .7), 2px 2px 0 #d8c08f, 4px 4px 0 #c9ad78, 0 20px 40px rgba(0,0,0,.6);
 }
-.book__page-text { white-space: pre-line; }
+.book__page-text { white-space: pre-line; word-break: auto-phrase; text-wrap: pretty; }
 .book__page-text:empty { display: none; }
 .book__page-mark { width: 54px; height: 54px; margin: 8px auto 0; color: var(--rubric); opacity: .75; }
 
@@ -174,6 +181,7 @@ p { margin: 0; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center;
 }
+.cover__latin, .cover__title, .cover__sub, .cover__owner { display: block; width: 100%; text-align: center; }
 .cover__latin { font-family: var(--f-pirate); font-size: clamp(18px, 5.2vw, 25px); letter-spacing: .04em; color: var(--gold); opacity: .9; }
 .cover__emblem { width: 52%; height: auto; aspect-ratio: 1; margin: 2% 0 1%; }
 .cover__title {
@@ -249,7 +257,9 @@ p { margin: 0; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--gold-bright); }
 .brand__mark { width: 34px; height: 34px; color: var(--gold); transition: transform .4s cubic-bezier(.3, 1.6, .5, 1); }
 .brand:hover .brand__mark { transform: rotate(-12deg) scale(1.08); }
-.brand__text > span { display: block; }
+.brand { min-width: 0; }
+.brand__text { min-width: 0; }
+.brand__text > span, .brand__text small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand__text { font-family: var(--f-display); font-weight: 700; font-size: 19px; letter-spacing: .12em; line-height: 1.1; display: flex; flex-direction: column; }
 .brand__text small { font-family: var(--f-body); font-weight: 400; font-size: 12px; letter-spacing: .2em; color: var(--parchment); opacity: .75; }
 
@@ -439,6 +449,7 @@ p { margin: 0; }
 .ledger dd:empty::after { content: "未記入"; color: var(--ink-soft); opacity: .6; }
 .ledger__sub { margin-left: 1em; font-family: var(--f-latin); font-style: italic; color: var(--ink-soft); }
 
+.profile__likes { margin-top: 22px; }
 .likes { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .likes li { padding: 2px 12px; border: 1px solid rgba(91, 62, 37, .45); border-radius: 2px; font-size: 15px; background: rgba(255, 248, 225, .3); }
 
@@ -593,6 +604,9 @@ p { margin: 0; }
 
 .work-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: clamp(28px, 5vw, 56px); align-items: start; }
 .work-main > section + section { margin-top: 44px; }
+.work-grid--solo { grid-template-columns: 1fr; }
+.work-grid--solo .work-side { position: static; }
+.work-grid--solo .spec dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); column-gap: 28px; }
 .work-main h2 { font-size: 24px; color: var(--rubric); letter-spacing: .06em; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
 .work-main h2 svg { width: 24px; height: 24px; flex-shrink: 0; }
 
@@ -674,8 +688,10 @@ p { margin: 0; }
   body { font-size: 16px; }
   :root { --header-h: 58px; }
 
+  .brand__text { font-size: 16px; letter-spacing: .06em; }
+  .brand__mark { width: 30px; height: 30px; flex-shrink: 0; }
   .nav-toggle {
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0; white-space: nowrap;
     padding: 6px 12px; background: none; cursor: pointer;
     border: 1px solid rgba(196, 154, 69, .5); border-radius: 999px; color: var(--gold-bright); font-size: 14px;
   }

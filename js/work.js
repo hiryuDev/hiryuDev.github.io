@@ -24,6 +24,7 @@
 
   loadData().then(({ site, works }) => {
     bindText(document, site);
+    window.__siteName = (site.texts && site.texts.brand) || (site.profile && site.profile.name ? `${site.profile.name} ポートフォリオ` : '');
     const list = publishedWorks(works);
     let work = list.find((w) => w.id === id);
     if (!work && allowDraft) work = works.find((w) => w && w.id === id);
@@ -35,18 +36,11 @@
   });
 
   function notFound() {
-    document.title = '記録が見つかりません ― 航海日誌';
+    document.title = '作品が見つかりません';
     $('workBody').replaceChildren(h('div', { class: 'notfound empty' },
       icon('i-chest', 'empty__chest'),
-      h('p', { class: 'empty__title', text: 'この記録は見つかりません' }),
+      h('p', { class: 'empty__title', text: 'この作品は見つかりません' }),
       h('p', { class: 'empty__text', text: 'URLが変わったか、まだ公開されていない作品です。作品一覧から探してください。' })));
-  }
-
-  function kanjiNum(n) {
-    const d = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
-    if (n < 10) return d[n];
-    const t = Math.floor(n / 10), o = n % 10;
-    return `${t > 1 ? d[t] : ''}十${d[o]}`;
   }
 
   function section(title, iconId, ...content) {
@@ -54,9 +48,9 @@
   }
 
   function render(w, list) {
-    document.title = `${w.title || w.id} ― 航海日誌`;
+    document.title = `${w.title || w.id} ― ${(window.__siteName || 'ポートフォリオ')}`;
     const idx = list.indexOf(w);
-    if (idx >= 0) $('runnerNo').textContent = `戦果 其の${kanjiNum(idx + 1)}`;
+    if (idx >= 0) $('runnerNo').textContent = `作品 ${idx + 1} / ${list.length}`;
 
     const body = [];
 
@@ -109,7 +103,7 @@
       .filter(([, v]) => v && v.length).map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', null, tagList(v))));
 
     const side = h('aside', { class: 'work-side' });
-    if (specRows.length || tagRows.length) side.append(h('div', { class: 'spec' }, h('h2', { text: '航海の記録' }), h('dl', null, specRows, tagRows)));
+    if (specRows.length || tagRows.length) side.append(h('div', { class: 'spec' }, h('h2', { text: '作品情報' }), h('dl', null, specRows, tagRows)));
 
     const links = (w.links || []).filter((l) => l && safeUrl(l.url));
     if (links.length) side.append(h('ul', { class: 'out-links' }, links.map((l) => {
@@ -118,14 +112,16 @@
         h('span', { text: l.label || url }), icon('i-link')));
     })));
 
-    body.push(h('div', { class: 'work-grid' }, main, side));
+    // 本文が空のときは、作品情報を横いっぱいに並べる
+    const solo = !main.children.length;
+    body.push(h('div', { class: `work-grid${solo ? ' work-grid--solo' : ''}` }, solo ? null : main, side));
 
     // 前後の作品
     if (idx >= 0 && list.length > 1) {
       const prev = list[idx - 1], next = list[idx + 1];
       const link = (x, dir) => h('a', { class: `pager__${dir}`, href: `work.html?id=${encodeURIComponent(x.id)}` },
         dir === 'prev' ? icon('i-left') : null,
-        h('span', null, h('small', { text: dir === 'prev' ? '前の記録' : '次の記録' }), x.title || x.id),
+        h('span', null, h('small', { text: dir === 'prev' ? '前の作品' : '次の作品' }), x.title || x.id),
         dir === 'next' ? icon('i-right') : null);
       body.push(h('nav', { class: 'pager', 'aria-label': '前後の作品' }, prev ? link(prev, 'prev') : null, next ? link(next, 'next') : null));
     }
