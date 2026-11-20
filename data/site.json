@@ -3,9 +3,9 @@
     "name": "ひりゅう",
     "nameEn": "Hiryu",
     "role": "ゲームプログラマー志望",
-    "school": "HAL東京 ゲーム制作学科",
+    "school": "HAL東京 ゲーム4年制学科 ゲーム制作コース",
     "graduation": "2028年3月 卒業見込み",
-    "portrait": "",
+    "portrait": "images/profile/_-mwoduu8l.jpg",
     "catchphrase": "ここにキャッチコピーを書きます",
     "bio": "ここに自己紹介を書きます。\nadmin.html の「プロフィール・スキル・連絡先」から編集できます。",
     "likes": []
@@ -14,22 +14,46 @@
     {
       "category": "言語",
       "items": [
-        { "name": "C++", "level": 0, "note": "" }
+        {
+          "name": "C++",
+          "level": 0,
+          "note": ""
+        }
       ]
     },
     {
       "category": "ライブラリ・エンジン",
       "items": [
-        { "name": "DirectX 11", "level": 0, "note": "" },
-        { "name": "Photon Realtime", "level": 0, "note": "" }
+        {
+          "name": "DirectX 11",
+          "level": 0,
+          "note": ""
+        },
+        {
+          "name": "Photon Engine",
+          "level": 1,
+          "note": ""
+        }
       ]
     },
     {
       "category": "ツール",
       "items": [
-        { "name": "Visual Studio", "level": 0, "note": "" },
-        { "name": "Git / GitHub", "level": 0, "note": "" },
-        { "name": "Blender", "level": 0, "note": "" }
+        {
+          "name": "Visual Studio",
+          "level": 0,
+          "note": ""
+        },
+        {
+          "name": "Git / GitHub",
+          "level": 0,
+          "note": ""
+        },
+        {
+          "name": "Blender",
+          "level": 0,
+          "note": ""
+        }
       ]
     }
   ],
@@ -38,6 +62,46 @@
     "message": "ご質問・ご連絡はメールにてお願いいたします。"
   },
   "links": [
-    { "label": "GitHub", "url": "https://github.com/hiryuDev" }
-  ]
+    {
+      "label": "GitHub",
+      "url": "https://github.com/hiryuDev"
+    }
+  ],
+  "texts": {
+    "brand": "航海日誌",
+    "cover": {
+      "latin": "Captain's Log",
+      "title": "航海日誌",
+      "sub": "ゲームプログラマー ポートフォリオ",
+      "page": "この日誌を開いた者へ。\nここに記すは、ひとりの船長が\nコードを武器に挑んだ航海の記録である。",
+      "hint": "表紙をクリックして日誌を開く"
+    },
+    "intro": {
+      "latin": "The log of a game programmer",
+      "lead": ""
+    },
+    "chapters": {
+      "profile": {
+        "title": "船長の素性",
+        "plain": "プロフィール"
+      },
+      "works": {
+        "title": "戦果の記録",
+        "plain": "制作作品"
+      },
+      "skills": {
+        "title": "武装と航海術",
+        "plain": "スキル・使用技術"
+      },
+      "contact": {
+        "title": "寄港の手紙",
+        "plain": "連絡先"
+      }
+    },
+    "worksEmpty": {
+      "title": "宝箱はまだ空っぽです",
+      "text": "船長はいま航海の真っ最中。戦果が積み込まれるまで、しばしお待ちを。"
+    },
+    "footer": "航海はまだ続く。"
+  }
 }
