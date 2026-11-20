@@ -16,7 +16,7 @@
       "items": [
         {
           "name": "C++",
-          "level": 0,
+          "level": 3,
           "note": ""
         }
       ]
@@ -26,7 +26,7 @@
       "items": [
         {
           "name": "DirectX 11",
-          "level": 0,
+          "level": 3,
           "note": ""
         },
         {
@@ -41,30 +41,38 @@
       "items": [
         {
           "name": "Visual Studio",
-          "level": 0,
+          "level": 4,
           "note": ""
         },
         {
           "name": "Git / GitHub",
-          "level": 0,
+          "level": 3,
           "note": ""
         },
         {
           "name": "Blender",
-          "level": 0,
+          "level": 2,
           "note": ""
         }
       ]
     }
   ],
   "contact": {
-    "email": "",
+    "email": "hiryu.yamamuro.haltokyo@gmail.com",
     "message": "ご質問・ご連絡はメールにてお願いいたします。"
   },
   "links": [
     {
       "label": "GitHub",
       "url": "https://github.com/hiryuDev"
+    },
+    {
+      "label": "Twitter(新 : X)",
+      "url": "https://x.com/hiryu_dev"
+    },
+    {
+      "label": "Youtube",
+      "url": "https://www.youtube.com/@hiryu_dev"
     }
   ],
   "texts": {
