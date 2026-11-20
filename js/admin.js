@@ -315,7 +315,6 @@
     renderWorkRows();
     buildSiteForm();
     updateSavebar();
-    $('saveBtn').disabled = !state.conn;
     $('saveBtn').title = state.conn ? '' : 'GitHubに接続すると使えます';
   }
 
@@ -329,6 +328,7 @@
     $('viewWorks').hidden = tab !== tabs[0];
     $('viewSite').hidden = tab !== tabs[1];
     $('viewEditor').hidden = true;
+    updateSavebar();
   }
 
   /* ---------- 作品一覧 ---------- */
@@ -378,28 +378,38 @@
     prev.href = `work.html?id=${encodeURIComponent(value.id || '')}&draft=1`;
     $('viewWorks').hidden = true;
     $('viewEditor').hidden = false;
+    $('saveWork').disabled = !state.conn;
+    updateSavebar();
     scrollTo(0, 0);
     $('workForm').querySelector('input, textarea').focus();
   }
   function closeEditor() {
     $('viewEditor').hidden = true;
     $('viewWorks').hidden = false;
+    updateSavebar();
   }
+  const isEditing = () => !$('viewEditor').hidden;
 
-  $('applyWork').addEventListener('click', () => {
+  // 編集中の内容を一覧に入れる。入力に問題があれば false
+  function applyEditor() {
     const v = workBuilder.get();
     const errors = [];
     if (!v.id) errors.push('作品IDを入力してください。');
     else if (!/^[a-z0-9][a-z0-9-]*$/.test(v.id)) errors.push('作品IDは半角英小文字・数字・ハイフンで入力してください。');
     else if (state.works.some((w, i) => w.id === v.id && i !== state.editingIndex)) errors.push(`作品ID「${v.id}」はすでに使われています。`);
     if (!v.title) errors.push('タイトルを入力してください。');
-    if (errors.length) { toast(errors.join(' '), 'error'); return; }
+    if (errors.length) { toast(errors.join(' '), 'error'); return false; }
     if (state.editingIndex >= 0) state.works[state.editingIndex] = v;
     else state.works.push(v);
     closeEditor();
     markWorks();
-    toast(state.conn ? '一覧に反映しました。「保存して公開」でサイトに出ます。' : '一覧に反映しました。「JSONを書き出す」で保存してください。');
+    return true;
+  }
+
+  $('applyWork').addEventListener('click', () => {
+    if (applyEditor()) toast(state.conn ? '一覧に入れました。まだ公開されていません。画面下の「保存して公開」で公開されます。' : '一覧に入れました。「JSONを書き出す」で保存してください。');
   });
+  $('saveWork').addEventListener('click', () => $('saveBtn').click());
 
   /* ---------- サイト情報 ---------- */
   function buildSiteForm() {
@@ -411,9 +421,12 @@
 
   /* ---------- 保存 ---------- */
   function updateSavebar() {
-    const dirty = state.worksDirty || state.siteDirty;
+    const editing = isEditing();
+    const dirty = state.worksDirty || state.siteDirty || editing;
     $('savebar').hidden = false;
-    $('saveMsg').textContent = dirty
+    $('saveMsg').textContent = editing
+      ? (state.conn ? '編集中の作品は「保存して公開」でそのまま公開されます。' : '編集中です（接続していないので書き出しのみ）。')
+      : dirty
       ? (state.conn ? '未保存の変更があります。' : '未保存の変更があります（接続していないので書き出しのみ）。')
       : (state.conn ? '変更はすべて保存済みです。' : '接続していません。書き出したJSONを data フォルダに置いてください。');
     $('saveBtn').disabled = !state.conn || !dirty;
@@ -427,6 +440,7 @@
 
   $('saveBtn').addEventListener('click', async () => {
     if (!state.conn) return;
+    if (isEditing() && !applyEditor()) return; // 入力に問題があれば保存しない
     const btn = $('saveBtn');
     btn.disabled = true;
     $('saveMsg').textContent = '保存しています…';
