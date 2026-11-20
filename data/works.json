@@ -7,10 +7,10 @@
     "subtitle": "Photon Engineの実装DEMO",
     "genre": "ボードゲーム",
     "thumbnail": "images/works/test/2026-11-20-113640-mwoh55ip.png",
-    "summary": "",
-    "period": "",
+    "summary": "hitokoto",
+    "period": "2026.11 ～ 2026.11 (約1週間)",
     "team": "個人製作",
-    "role": "",
+    "role": "メインプログラマー",
     "platform": "Windows / PC",
     "languages": [
       "C++"
@@ -23,16 +23,26 @@
     "tools": [
       "Visual Studio"
     ],
-    "description": "",
+    "description": "オセロはAIに任せて、Photonのネットワークは設計をAIと壁打ちして実装\n初見だったけど、結構うまくいった(SDKの資料があったので、それを活用)",
     "responsibilities": [],
-    "highlights": [],
-    "challenges": [],
+    "highlights": [
+      {
+        "title": "ああ",
+        "body": "ああ"
+      }
+    ],
+    "challenges": [
+      {
+        "problem": "ああ",
+        "solution": "ああ"
+      }
+    ],
     "video": "https://www.youtube.com/watch?v=TcC002-O1T0",
     "screenshots": [],
     "links": [],
     "outlook": {
-      "next": "",
-      "carry": ""
+      "next": "さｄｄ",
+      "carry": "だあｗｓ"
     }
   }
 ]
