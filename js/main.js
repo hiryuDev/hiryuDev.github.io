@@ -17,6 +17,7 @@
   function storageSet(k, v) { try { sessionStorage.setItem(k, v); } catch (_) { /* 無視 */ } }
 
   function finishCover() {
+    setTimeout(() => { if (stage.classList.contains('is-gone')) stage.hidden = true; }, 700);
     stage.classList.add('is-gone');
     stage.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('cover-open');
@@ -35,6 +36,8 @@
   }
 
   function showCover() {
+    stage.hidden = false;
+    void stage.offsetWidth;
     stage.classList.remove('is-gone', 'is-opening', 'is-entering');
     stage.removeAttribute('aria-hidden');
     document.body.classList.add('cover-open');
@@ -44,6 +47,7 @@
 
   // 同じセッションで一度開いた／ページ内リンクで来た場合は表紙を飛ばす
   if (storageGet(OPENED_KEY) || (location.hash && location.hash !== '#top')) {
+    stage.hidden = true;
     stage.classList.add('is-gone');
     stage.setAttribute('aria-hidden', 'true');
   } else {
@@ -96,9 +100,12 @@
     ship.style.setProperty('--progress', p.toFixed(4));
     ticking = false;
   }
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(updateShip); } }, { passive: true });
-  addEventListener('resize', updateShip);
-  updateShip();
+  // CSS だけでスクロール連動できるブラウザでは JS の処理を省く
+  if (!(window.CSS && CSS.supports('animation-timeline: scroll()'))) {
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(updateShip); } }, { passive: true });
+    addEventListener('resize', updateShip);
+    updateShip();
+  }
 
   $('year').textContent = new Date().getFullYear();
 
