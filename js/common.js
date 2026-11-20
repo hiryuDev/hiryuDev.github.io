@@ -80,10 +80,11 @@
     return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
   }
 
-  /** data-bind="profile.name" の要素に値を流し込む */
+  /** data-bind="profile.name" の要素に値を流し込む（改行は CSS の pre-line でそのまま出る） */
   function bindText(root, data) {
     root.querySelectorAll('[data-bind]').forEach((el) => {
       const v = pick(data, el.dataset.bind);
+      if (v === undefined) return; // データに無い項目は HTML に書いた初期の文章のまま
       el.textContent = v == null ? '' : String(v);
     });
   }

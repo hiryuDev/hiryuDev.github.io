@@ -73,6 +73,42 @@
     ] },
     { key: 'links', label: '外部リンク（GitHub・X など）', type: 'objects', addLabel: 'リンクを追加',
       fields: [{ key: 'label', label: '表示名', type: 'text' }, { key: 'url', label: 'URL', type: 'url' }] },
+    { key: 'texts', label: '画面の文章（表紙・見出しなど）', type: 'group',
+      help: '最初から入っているのが今サイトに出ている文章です。空欄にするとその文章は表示されません。', fields: [
+      { key: 'brand', label: 'サイト名（左上のロゴ横・ページ上部）', type: 'text', default: '航海日誌' },
+      { key: 'cover', label: '表紙', type: 'group', fields: [
+        { key: 'latin', label: '上の英字', type: 'text', default: "Captain's Log" },
+        { key: 'title', label: 'タイトル', type: 'text', default: '航海日誌' },
+        { key: 'sub', label: 'タイトル下の説明', type: 'text', default: 'ゲームプログラマー ポートフォリオ' },
+        { key: 'page', label: '表紙をめくった1ページ目の文', type: 'textarea', rows: 3,
+          default: 'この日誌を開いた者へ。\nここに記すは、ひとりの船長が\nコードを武器に挑んだ航海の記録である。' },
+        { key: 'hint', label: '表紙の下の案内', type: 'text', default: '表紙をクリックして日誌を開く' },
+      ] },
+      { key: 'intro', label: 'トップ（序のページ）', type: 'group', fields: [
+        { key: 'latin', label: '名前の上の英字', type: 'text', default: 'The log of a game programmer' },
+        { key: 'lead', label: '名前の下の紹介文（任意）', type: 'textarea', rows: 3, default: '',
+          help: 'キャッチコピーと所属の下に出ます。空なら出ません。名前・志望・キャッチコピー・所属は「プロフィール」で編集します。' },
+      ] },
+      { key: 'chapters', label: '各ページの見出し（航海図の島の名前も同じものを使います）', type: 'group', fields: [
+        { key: 'profile', label: 'プロフィールのページ', type: 'group', fields: [
+          { key: 'title', label: '見出し', type: 'text', default: '船長の素性' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: 'プロフィール' } ] },
+        { key: 'works', label: '作品のページ', type: 'group', fields: [
+          { key: 'title', label: '見出し', type: 'text', default: '戦果の記録' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: '制作作品' } ] },
+        { key: 'skills', label: 'スキルのページ', type: 'group', fields: [
+          { key: 'title', label: '見出し', type: 'text', default: '武装と航海術' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: 'スキル・使用技術' } ] },
+        { key: 'contact', label: '連絡先のページ', type: 'group', fields: [
+          { key: 'title', label: '見出し', type: 'text', default: '寄港の手紙' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: '連絡先' } ] },
+      ] },
+      { key: 'worksEmpty', label: '作品が0件のときの文', type: 'group', fields: [
+        { key: 'title', label: '見出し', type: 'text', default: '宝箱はまだ空っぽです' },
+        { key: 'text', label: '説明', type: 'text', default: '船長はいま航海の真っ最中。戦果が積み込まれるまで、しばしお待ちを。' },
+      ] },
+      { key: 'footer', label: 'いちばん下のひとこと', type: 'text', default: '航海はまだ続く。' },
+    ] },
   ];
 
   /* ---------- 小道具 ---------- */
@@ -446,7 +482,7 @@
     let el, get;
     if (def.type === 'textarea' || def.type === 'lines') {
       el = h('textarea', { id, rows: def.rows || 3, placeholder: def.placeholder || null });
-      el.value = def.type === 'lines' ? (value || []).join('\n') : (value || '');
+      el.value = def.type === 'lines' ? (value || []).join('\n') : (value ?? def.default ?? '');
       get = () => (def.type === 'lines' ? el.value.split('\n').map((s) => s.trim()).filter(Boolean) : el.value.trim());
     } else if (def.type === 'level') {
       el = h('select', { id }, ['表示しない', '1', '2', '3', '4', '5'].map((t, n) => h('option', { value: n, text: n ? `${'●'.repeat(n)}${'○'.repeat(5 - n)}（${n}）` : t })));
@@ -458,7 +494,7 @@
       get = () => el.value.split(/[,、，]/).map((s) => s.trim()).filter(Boolean);
     } else {
       el = h('input', { id, type: def.type === 'url' ? 'url' : 'text', placeholder: def.placeholder || null, required: def.required || null, pattern: def.pattern || null });
-      el.value = value || '';
+      el.value = value ?? def.default ?? '';
       get = () => el.value.trim();
     }
     return { el: wrap(def, id, el), get, input: el };

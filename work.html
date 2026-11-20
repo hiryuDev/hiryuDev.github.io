@@ -19,7 +19,7 @@
     <div class="site-header__inner">
       <a class="brand" href="index.html">
         <svg class="brand__mark" aria-hidden="true"><use href="images/icons.svg#i-skull"/></svg>
-        <span class="brand__text">航海日誌<small data-bind="profile.name">ひりゅう</small></span>
+        <span class="brand__text"><span data-bind="texts.brand">航海日誌</span><small data-bind="profile.name">ひりゅう</small></span>
       </a>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav">
         <svg aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>
@@ -38,14 +38,14 @@
 
   <main id="log" class="log" tabindex="-1">
     <article class="sheet" id="work">
-      <div class="sheet__runner"><span>航海日誌</span><span id="runnerNo">戦果の記録</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span id="runnerNo">戦果の記録</span></div>
       <a class="back-link" href="index.html#works"><svg aria-hidden="true"><use href="images/icons.svg#i-left"/></svg>作品一覧へ戻る</a>
       <div id="workBody" aria-live="polite"><p>記録を読み込んでいます…</p></div>
     </article>
   </main>
 
   <footer class="site-footer">
-    <p class="site-footer__end">航海はまだ続く。</p>
+    <p class="site-footer__end" data-bind="texts.footer">航海はまだ続く。</p>
     <p class="site-footer__copy">&copy; <span id="year"></span> <span data-bind="profile.name">ひりゅう</span></p>
   </footer>
 

@@ -131,6 +131,8 @@ p { margin: 0; }
     var(--parchment);
   box-shadow: inset 14px 0 24px -12px rgba(60, 30, 5, .7), 2px 2px 0 #d8c08f, 4px 4px 0 #c9ad78, 0 20px 40px rgba(0,0,0,.6);
 }
+.book__page-text { white-space: pre-line; }
+.book__page-text:empty { display: none; }
 .book__page-mark { width: 54px; height: 54px; margin: 8px auto 0; color: var(--rubric); opacity: .75; }
 
 .book__cover {
@@ -240,6 +242,7 @@ p { margin: 0; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--gold-bright); }
 .brand__mark { width: 34px; height: 34px; color: var(--gold); transition: transform .4s cubic-bezier(.3, 1.6, .5, 1); }
 .brand:hover .brand__mark { transform: rotate(-12deg) scale(1.08); }
+.brand__text > span { display: block; }
 .brand__text { font-family: var(--f-display); font-weight: 700; font-size: 19px; letter-spacing: .12em; line-height: 1.1; display: flex; flex-direction: column; }
 .brand__text small { font-family: var(--f-body); font-weight: 400; font-size: 12px; letter-spacing: .2em; color: var(--parchment); opacity: .75; }
 
@@ -359,6 +362,8 @@ p { margin: 0; }
 .intro__catch:empty { display: none; }
 .intro__school { margin-top: 10px; font-size: 15px; color: var(--ink-soft); }
 .intro__school span { display: inline-block; }
+.intro__lead { white-space: pre-line; margin: 22px auto 0; max-width: 34em; font-size: 17px; line-height: 2; }
+.intro__lead:empty, .intro__latin:empty, .cover__latin:empty, .cover__sub:empty, .cover-stage__hint:empty, .sheet__title-plain:empty, .isle__plain:empty { display: none; }
 
 /* 航海図ナビ */
 .chart {

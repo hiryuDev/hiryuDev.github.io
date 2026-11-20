@@ -27,8 +27,9 @@
     <div class="cover-stage__glow" aria-hidden="true"></div>
     <div class="book" id="book">
       <div class="book__page" aria-hidden="true">
-        <p class="book__page-line">この日誌を開いた者へ。</p>
-        <p class="book__page-line">ここに記すは、ひとりの船長が<br>コードを武器に挑んだ航海の記録である。</p>
+        <p class="book__page-text" data-bind="texts.cover.page">この日誌を開いた者へ。
+ここに記すは、ひとりの船長が
+コードを武器に挑んだ航海の記録である。</p>
         <svg class="book__page-mark"><use href="images/icons.svg#i-compass"/></svg>
       </div>
       <button class="book__cover" id="openBook" type="button" aria-label="航海日誌を開いてポートフォリオを見る">
@@ -39,11 +40,11 @@
           <svg class="cover__corner cover__corner--br"><use href="images/icons.svg#i-corner"/></svg>
         </span>
         <span class="cover__content">
-          <span class="cover__latin">Captain's Log</span>
+          <span class="cover__latin" data-bind="texts.cover.latin">Captain's Log</span>
           <svg class="cover__emblem" aria-hidden="true"><use href="images/icons.svg#i-skull"/></svg>
-          <span class="cover__title">航海日誌</span>
+          <span class="cover__title" data-bind="texts.cover.title">航海日誌</span>
           <span class="cover__rule" aria-hidden="true"></span>
-          <span class="cover__sub">ゲームプログラマー ポートフォリオ</span>
+          <span class="cover__sub" data-bind="texts.cover.sub">ゲームプログラマー ポートフォリオ</span>
           <span class="cover__owner" data-bind="profile.name">ひりゅう</span>
         </span>
         <span class="cover__clasp" aria-hidden="true"></span>
@@ -54,7 +55,7 @@
       </button>
       <span class="book__ribbon" aria-hidden="true"></span>
     </div>
-    <p class="cover-stage__hint">表紙をクリックして日誌を開く</p>
+    <p class="cover-stage__hint" data-bind="texts.cover.hint">表紙をクリックして日誌を開く</p>
     <button class="cover-stage__skip" id="skipCover" type="button">表紙を飛ばして読む</button>
   </div>
 
@@ -63,7 +64,7 @@
     <div class="site-header__inner">
       <a class="brand" href="#top">
         <svg class="brand__mark" aria-hidden="true"><use href="images/icons.svg#i-skull"/></svg>
-        <span class="brand__text">航海日誌<small data-bind="profile.name">ひりゅう</small></span>
+        <span class="brand__text"><span data-bind="texts.brand">航海日誌</span><small data-bind="profile.name">ひりゅう</small></span>
       </a>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav">
         <svg aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>
@@ -88,16 +89,17 @@
 
     <!-- ===== 序：はじめに ===== -->
     <article class="sheet sheet--intro" id="top" aria-labelledby="introTitle">
-      <div class="sheet__runner"><span>航海日誌</span><span>序</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>序</span></div>
 
       <div class="intro">
-        <p class="intro__latin">The log of a game programmer</p>
+        <p class="intro__latin" data-bind="texts.intro.latin">The log of a game programmer</p>
         <h1 class="intro__title" id="introTitle">
           <span class="intro__name" data-bind="profile.name">ひりゅう</span>
           <span class="intro__role" data-bind="profile.role">ゲームプログラマー志望</span>
         </h1>
         <p class="intro__catch" data-bind="profile.catchphrase"></p>
         <p class="intro__school"><span data-bind="profile.school"></span> <span data-bind="profile.graduation"></span></p>
+        <p class="intro__lead" data-bind="texts.intro.lead"></p>
       </div>
 
       <!-- 航海図ナビゲーション -->
@@ -113,10 +115,10 @@
         </svg>
         <svg class="chart__rose" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>
         <ol class="chart__isles">
-          <li class="isle isle--1"><a href="#profile"><svg aria-hidden="true"><use href="images/icons.svg#i-quill"/></svg><span class="isle__name">船長の素性</span><span class="isle__plain">プロフィール</span></a></li>
-          <li class="isle isle--2"><a href="#works"><svg aria-hidden="true"><use href="images/icons.svg#i-chest"/></svg><span class="isle__name">戦果の記録</span><span class="isle__plain">制作作品</span></a></li>
-          <li class="isle isle--3"><a href="#skills"><svg aria-hidden="true"><use href="images/icons.svg#i-helm"/></svg><span class="isle__name">武装と航海術</span><span class="isle__plain">スキル・技術</span></a></li>
-          <li class="isle isle--4"><a href="#contact"><svg aria-hidden="true"><use href="images/icons.svg#i-mark"/></svg><span class="isle__name">寄港の手紙</span><span class="isle__plain">連絡先</span></a></li>
+          <li class="isle isle--1"><a href="#profile"><svg aria-hidden="true"><use href="images/icons.svg#i-quill"/></svg><span class="isle__name" data-bind="texts.chapters.profile.title">船長の素性</span><span class="isle__plain" data-bind="texts.chapters.profile.plain">プロフィール</span></a></li>
+          <li class="isle isle--2"><a href="#works"><svg aria-hidden="true"><use href="images/icons.svg#i-chest"/></svg><span class="isle__name" data-bind="texts.chapters.works.title">戦果の記録</span><span class="isle__plain" data-bind="texts.chapters.works.plain">制作作品</span></a></li>
+          <li class="isle isle--3"><a href="#skills"><svg aria-hidden="true"><use href="images/icons.svg#i-helm"/></svg><span class="isle__name" data-bind="texts.chapters.skills.title">武装と航海術</span><span class="isle__plain" data-bind="texts.chapters.skills.plain">スキル・使用技術</span></a></li>
+          <li class="isle isle--4"><a href="#contact"><svg aria-hidden="true"><use href="images/icons.svg#i-mark"/></svg><span class="isle__name" data-bind="texts.chapters.contact.title">寄港の手紙</span><span class="isle__plain" data-bind="texts.chapters.contact.plain">連絡先</span></a></li>
         </ol>
       </nav>
 
@@ -127,10 +129,10 @@
 
     <!-- ===== 壱：プロフィール ===== -->
     <section class="sheet" id="profile" aria-labelledby="profileTitle">
-      <div class="sheet__runner"><span>航海日誌</span><span>第壱頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第壱頁</span></div>
       <h2 class="sheet__title" id="profileTitle">
-        <span class="sheet__title-theme">船長の素性</span>
-        <span class="sheet__title-plain">プロフィール</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.profile.title">船長の素性</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.profile.plain">プロフィール</span>
       </h2>
 
       <div class="profile">
@@ -162,10 +164,10 @@
 
     <!-- ===== 弐：作品 ===== -->
     <section class="sheet sheet--works" id="works" aria-labelledby="worksTitle">
-      <div class="sheet__runner"><span>航海日誌</span><span>第弐頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第弐頁</span></div>
       <h2 class="sheet__title" id="worksTitle">
-        <span class="sheet__title-theme">戦果の記録</span>
-        <span class="sheet__title-plain">制作作品</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.works.title">戦果の記録</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.works.plain">制作作品</span>
       </h2>
 
       <div class="filter" id="workFilter" role="group" aria-label="使用技術で絞り込む" hidden></div>
@@ -173,8 +175,8 @@
 
       <div class="empty" id="worksEmpty" hidden>
         <svg class="empty__chest" aria-hidden="true"><use href="images/icons.svg#i-chest"/></svg>
-        <p class="empty__title">宝箱はまだ空っぽです</p>
-        <p class="empty__text">船長はいま航海の真っ最中。戦果が積み込まれるまで、しばしお待ちを。</p>
+        <p class="empty__title" data-bind="texts.worksEmpty.title">宝箱はまだ空っぽです</p>
+        <p class="empty__text" data-bind="texts.worksEmpty.text">船長はいま航海の真っ最中。戦果が積み込まれるまで、しばしお待ちを。</p>
       </div>
 
       <div class="sheet__folio" aria-hidden="true">弐</div>
@@ -184,10 +186,10 @@
 
     <!-- ===== 参：スキル ===== -->
     <section class="sheet" id="skills" aria-labelledby="skillsTitle">
-      <div class="sheet__runner"><span>航海日誌</span><span>第参頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第参頁</span></div>
       <h2 class="sheet__title" id="skillsTitle">
-        <span class="sheet__title-theme">武装と航海術</span>
-        <span class="sheet__title-plain">スキル・使用技術</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.skills.title">武装と航海術</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.skills.plain">スキル・使用技術</span>
       </h2>
       <p class="skills__legend" id="skillsLegend" hidden>
         金貨の枚数は習熟度の目安です（5枚で最大）。
@@ -200,10 +202,10 @@
 
     <!-- ===== 肆：連絡先 ===== -->
     <section class="sheet sheet--contact" id="contact" aria-labelledby="contactTitle">
-      <div class="sheet__runner"><span>航海日誌</span><span>第肆頁</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>第肆頁</span></div>
       <h2 class="sheet__title" id="contactTitle">
-        <span class="sheet__title-theme">寄港の手紙</span>
-        <span class="sheet__title-plain">連絡先</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.contact.title">寄港の手紙</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.contact.plain">連絡先</span>
       </h2>
       <div class="letter">
         <p class="letter__message prose" data-bind="contact.message"></p>
@@ -218,7 +220,7 @@
   </main>
 
   <footer class="site-footer">
-    <p class="site-footer__end">航海はまだ続く。</p>
+    <p class="site-footer__end" data-bind="texts.footer">航海はまだ続く。</p>
     <button class="text-button" id="replayCover" type="button">表紙をもう一度見る</button>
     <p class="site-footer__copy">&copy; <span id="year"></span> <span data-bind="profile.name">ひりゅう</span></p>
   </footer>

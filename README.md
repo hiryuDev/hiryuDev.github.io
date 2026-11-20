@@ -159,7 +159,7 @@ VS Code なら拡張機能「Live Server」で `index.html` を開くのが手�
 | ページ（章）を増やす | `index.html` の `<section class="sheet">` を複製し、目次と航海図の島を足す |
 | 作品の入力項目を増やす | `js/admin.js` の `WORK_FIELDS` に1行足す → `js/work.js` の `render()` に表示を足す |
 | 飾りの絵を変える・足す | `images/icons.svg` に `<symbol id="i-xxx">` を足し、`<use href="images/icons.svg#i-xxx">` で使う |
-| 表紙の文言 | `index.html` の `cover__…` の部分 |
+| 表紙・見出し・トップの文章 | 船長室の「プロフィール・スキル・連絡先」タブ →「画面の文章」（`data/site.json` の `texts`） |
 | 編集画面を置きたくない | `admin.html` `css/admin.css` `js/admin.js` を消すだけ（サイト側は影響なし） |
 
 - 表紙は同じタブで一度開くと、次からは自動で飛ばします（フッターの「表紙をもう一度見る」で再生）。
