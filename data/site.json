@@ -8,7 +8,10 @@
     "portrait": "images/profile/_-mwoduu8l.jpg",
     "catchphrase": "ここにキャッチコピーを書きます",
     "bio": "ここに自己紹介を書きます。\nadmin.html の「プロフィール・スキル・連絡先」から編集できます。",
-    "likes": []
+    "likes": [
+      "ガンプラ",
+      "ゲーム制作"
+    ]
   },
   "skills": [
     {
