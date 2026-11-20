@@ -139,7 +139,7 @@
       const wrap = h('div', { class: 'video' });
       const poster = h('button', { class: 'video__poster', type: 'button', 'aria-label': `${w.title || ''} の動画を再生` },
         h('img', { src: `https://i.ytimg.com/vi/${yt}/hqdefault.jpg`, alt: '', loading: 'lazy' }),
-        h('span', { class: 'video__play', 'aria-hidden': 'true' }, icon('i-seal'), icon('i-play', 'video__play-icon')));
+        h('span', { class: 'video__play', 'aria-hidden': 'true' }, icon('i-play', 'video__play-icon')));
       poster.addEventListener('click', () => {
         wrap.replaceChildren(h('iframe', {
           src: `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`,

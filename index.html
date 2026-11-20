@@ -41,7 +41,7 @@
         </span>
         <span class="cover__content">
           <span class="cover__latin" data-bind="texts.cover.latin">Captain's Log</span>
-          <svg class="cover__emblem" aria-hidden="true"><use href="images/icons.svg#i-skull"/></svg>
+          <img class="cover__emblem" src="images/fx/emblem.png" alt="" aria-hidden="true">
           <span class="cover__title" data-bind="texts.cover.title">航海日誌</span>
           <span class="cover__rule" aria-hidden="true"></span>
           <span class="cover__sub" data-bind="texts.cover.sub">ゲームプログラマー ポートフォリオ</span>
@@ -49,7 +49,6 @@
         </span>
         <span class="cover__clasp" aria-hidden="true"></span>
         <span class="cover__seal" aria-hidden="true">
-          <svg><use href="images/icons.svg#i-seal"/></svg>
           <span>開</span>
         </span>
       </button>
@@ -81,7 +80,7 @@
     </div>
     <div class="voyage" aria-hidden="true">
       <div class="voyage__line"></div>
-      <svg class="voyage__ship" id="voyageShip"><use href="images/icons.svg#i-ship"/></svg>
+      <span class="voyage__ship" id="voyageShip"></span>
     </div>
   </header>
 
@@ -210,7 +209,7 @@
       <div class="letter">
         <p class="letter__message prose" data-bind="contact.message"></p>
         <a class="seal-button" id="mailButton" href="#" hidden>
-          <span class="seal-button__seal" aria-hidden="true"><svg><use href="images/icons.svg#i-seal"/></svg><svg class="seal-button__icon"><use href="images/icons.svg#i-mail"/></svg></span>
+          <span class="seal-button__seal" aria-hidden="true"><svg class="seal-button__icon"><use href="images/icons.svg#i-mail"/></svg></span>
           <span class="seal-button__label">メールを送る<small id="mailAddress"></small></span>
         </a>
         <ul class="harbors" id="linkList"></ul>

@@ -170,7 +170,7 @@
           w.summary ? h('p', { class: 'entry__summary', text: w.summary }) : null,
           meta.length ? h('dl', { class: 'entry__meta' }, meta.map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { text: v })))) : null,
           h('a', { class: 'seal-link', href: workUrl(w), 'aria-label': `${w.title || w.id} の詳しい記録を読む` },
-            h('span', { class: 'seal-link__seal', 'aria-hidden': 'true' }, icon('i-seal'), icon('i-quill', 'seal-link__icon')),
+            h('span', { class: 'seal-link__seal', 'aria-hidden': 'true' }, icon('i-quill', 'seal-link__icon')),
             h('span', { text: '詳しい記録を読む' }))));
       list.append(li);
     });
@@ -217,7 +217,7 @@
             h('div', { class: 'armory__row' },
               h('span', { class: 'armory__name', text: it.name }),
               lv ? h('span', { class: 'coins', role: 'img', 'aria-label': `習熟度 5段階中 ${lv}` },
-                [1, 2, 3, 4, 5].map((n) => icon(n <= lv ? 'i-coin' : 'i-coin-empty', n <= lv ? 'on' : 'off'))) : null),
+                [1, 2, 3, 4, 5].map((n) => h('span', { class: `coin ${n <= lv ? 'coin--on' : 'coin--off'}` }))) : null),
             it.note ? h('p', { class: 'armory__note', text: it.note }) : null);
         }))));
     });
