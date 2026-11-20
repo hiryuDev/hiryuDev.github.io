@@ -117,6 +117,10 @@ favicon.svg       タブのアイコン
     "challenges": [
       { "problem": "ぶつかった課題", "solution": "どう解決したか" }
     ],
+    "outlook": {
+      "next": "この作品で次に改善・追加したいこと",
+      "carry": "次の作品で活かしたいこと"
+    },
     "video": "https://www.youtube.com/watch?v=XXXXXXXXXXX",
     "screenshots": [
       { "src": "images/works/machine-buster/ss1.jpg", "caption": "説明" }

@@ -87,6 +87,11 @@
       h('span', { class: 'trouble__label', text: '課題' }), h('p', { class: 'prose', text: t.problem || '' }),
       h('span', { class: 'trouble__label trouble__label--fix', text: '解決' }), h('p', { class: 'prose', text: t.solution || '' }))))));
 
+    const ol = w.outlook || {};
+    const outlook = [['次はこうしたい', ol.next], ['次の作品で活かしたいこと', ol.carry]].filter(([, v]) => v);
+    if (outlook.length) main.append(section('今後の展望', 'i-ship', h('div', { class: 'outlook' }, outlook.map(([label, text]) =>
+      h('div', { class: 'outlook__item' }, h('h3', { class: 'outlook__label', text: label }), h('p', { class: 'prose', text })))))); 
+
     const shots = (w.screenshots || []).filter((s) => s && safeUrl(s.src));
     if (shots.length) main.append(section('スクリーンショット', 'i-mark', h('ul', { class: 'gallery' }, shots.map((s) => {
       const src = safeUrl(s.src);

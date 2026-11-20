@@ -37,6 +37,12 @@
       fields: [{ key: 'title', label: '見出し', type: 'text' }, { key: 'body', label: '説明', type: 'textarea', rows: 4 }] },
     { key: 'challenges', label: '課題と解決', type: 'objects', addLabel: '課題を追加',
       fields: [{ key: 'problem', label: '課題', type: 'textarea', rows: 3 }, { key: 'solution', label: 'どう解決したか', type: 'textarea', rows: 3 }] },
+    { key: 'outlook', label: '今後の展望', type: 'group', help: '空欄の項目は詳細ページに出ません。', fields: [
+      { key: 'next', label: '次はこうしたい（この作品で改善・追加したいこと）', type: 'textarea', rows: 4,
+        placeholder: '例：敵AIの行動パターンを増やしたい。ロード時間を短くするため、アセットの読み込みを非同期にしたい。' },
+      { key: 'carry', label: '次の作品で活かしたいこと', type: 'textarea', rows: 4,
+        placeholder: '例：今回作ったECSの仕組みを、就職作品の大量の敵の処理に使いたい。' },
+    ] },
     { key: 'video', label: '動画（YouTubeのURL、または mp4 のパス）', type: 'url', placeholder: 'https://www.youtube.com/watch?v=…',
       help: '動画ファイルはリポジトリが重くなるので、YouTube（限定公開でも可）を推奨します。' },
     { key: 'screenshots', label: 'スクリーンショット', type: 'objects', addLabel: '画像を追加',
