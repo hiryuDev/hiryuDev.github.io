@@ -227,6 +227,13 @@
     return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
   }
 
+  // GitHub Pages が「_」で始まるファイルを隠さないよう、.nojekyll が無ければ作る
+  async function ensureNoJekyll() {
+    try {
+      if (!(await getFile('.nojekyll'))) await putFile('.nojekyll', '', 'GitHub Pages 用に .nojekyll を追加');
+    } catch (err) { console.warn('.nojekyll を作れませんでした', err); }
+  }
+
   /* ---------- 接続 ---------- */
   const form = $('connectForm');
 
@@ -274,6 +281,7 @@
       const info = await gh('');
       if (!info.permissions || !info.permissions.push) throw new Error('このトークンには書き込み権限がありません。「Contents: Read and write」を付けてください。');
       if (remember !== undefined) saveConn(conn, remember);
+      await ensureNoJekyll();
       const [wf, sf] = await Promise.all([getFile('data/works.json'), getFile('data/site.json')]);
       state.works = wf ? JSON.parse(b64decodeText(wf.content)) : [];
       state.worksSha = wf ? wf.sha : null;
@@ -555,7 +563,9 @@
       if (dir.endsWith('/misc') && !ctx.id) { note.textContent = '先に作品IDを入力してください（画像の保存先に使います）。'; return; }
       if (f.size > 5 * 1024 * 1024) { note.textContent = `${(f.size / 1048576).toFixed(1)}MB あります。5MB以下に縮小してからアップロードしてください。`; return; }
       const ext = (f.name.match(/\.[a-z0-9]+$/i) || ['.png'])[0].toLowerCase();
-      const base = f.name.replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'image';
+      // GitHub Pages は「_」で始まるファイルを配信しないことがあるので、英数字とハイフンだけにする
+      let base = f.name.replace(/\.[^.]+$/, '').toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
+      if (base.length < 2) base = 'image';
       const path = `${dir}/${base}-${Date.now().toString(36)}${ext}`;
       note.textContent = 'アップロードしています…';
       pickBtn.classList.add('is-busy');
