@@ -44,5 +44,43 @@
       "next": "さｄｄ",
       "carry": "だあｗｓ"
     }
+  },
+  {
+    "published": true,
+    "id": "machinebuster",
+    "featured": true,
+    "title": "MACHINE BUSTER",
+    "subtitle": "",
+    "genre": "3Dアクションシューティング",
+    "thumbnail": "",
+    "summary": "",
+    "period": "2026.9 ～ 2026.11 (1ヵ月半)",
+    "team": "個人製作",
+    "role": "メインプログラマー",
+    "platform": "Windows / PC",
+    "languages": [
+      "C++",
+      "HLSL"
+    ],
+    "tech": [
+      "DirectX11",
+      "ImGui",
+      "FBX SDK"
+    ],
+    "tools": [
+      "Visual Studio",
+      "Git"
+    ],
+    "description": "",
+    "responsibilities": [],
+    "highlights": [],
+    "challenges": [],
+    "outlook": {
+      "next": "",
+      "carry": ""
+    },
+    "video": "",
+    "screenshots": [],
+    "links": []
   }
 ]
