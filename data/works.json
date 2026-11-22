@@ -1,8 +1,8 @@
 [
   {
     "published": true,
-    "id": "test",
-    "featured": false,
+    "id": "osero",
+    "featured": true,
     "title": "オンラインオセロDEMO",
     "subtitle": "Photon Engineの実装DEMO",
     "genre": "ボードゲーム",
