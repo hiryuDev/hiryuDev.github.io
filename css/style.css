@@ -36,6 +36,8 @@
 /* ---------- 基本 ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
+/* データを読み込むまで、差し替え前の文章を見せない */
+.is-loading [data-bind] { visibility: hidden; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 24px); }
 body {
   margin: 0;
@@ -495,6 +497,23 @@ h1, h2, h3, .intro__catch, .intro__lead, .intro__school, .empty__title, .empty__
 .entry__title a:hover { color: var(--rubric); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
 .entry__genre { font-size: 15px; color: var(--ink-soft); margin-bottom: 12px; }
 .entry__summary { margin-bottom: 16px; }
+
+/* AI使用タグ */
+.ai-badge {
+  display: inline-block; font-size: 12.5px; line-height: 1.7; padding: 0 9px; border-radius: 2px;
+  letter-spacing: .06em; font-weight: 600; white-space: nowrap; vertical-align: .1em;
+}
+.ai-badge--used { color: var(--parchment); background: var(--rubric); }
+.ai-badge--none { color: var(--ink); background: rgba(255, 248, 225, .5); border: 1px solid var(--gold-dark); }
+.entry__ai { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: -4px 0 12px; font-size: 14px; color: var(--ink-soft); }
+.spec .ai-badge--none { color: var(--parchment); background: rgba(0, 0, 0, .2); border-color: rgba(196, 154, 69, .6); }
+.ai-note { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.ai-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ai-list__item { padding: 14px 18px; background: rgba(255, 248, 225, .35); border: 1px solid rgba(91, 62, 37, .35); border-left: 4px solid var(--gold-dark); }
+.ai-list__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin-bottom: 2px; }
+.ai-list__area { font-family: var(--f-display); font-weight: 700; font-size: 17px; }
+.ai-list__tool { font-size: 14px; color: var(--ink-soft); }
+.ai-list__tool::before { content: "使用AI："; }
 .entry__meta { margin: 0 0 20px; display: grid; gap: 4px; font-size: 15px; }
 .entry__meta > div { display: grid; grid-template-columns: 4.5em 1fr; gap: 10px; }
 .entry__meta dt { color: var(--rubric); font-weight: 600; }

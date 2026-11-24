@@ -94,9 +94,21 @@
     return h('ul', { class: 'tags' }, items.map((t) => h('li', { text: t })));
   }
 
+  /** 差し替えが終わったら文章を表示する */
+  function revealText() { document.documentElement.classList.remove('is-loading'); }
+
+  /** 作品のAI使用情報を整理して返す。{ none: true } / { uses: [...] } / null（未記入） */
+  function aiInfo(w) {
+    const ai = (w && w.ai) || {};
+    const uses = (ai.uses || []).filter((u) => u && (u.area || u.tool || u.detail));
+    if (uses.length) return { uses, areas: [...new Set(uses.map((u) => u.area).filter(Boolean))] };
+    if (ai.none) return { none: true };
+    return null;
+  }
+
   function reducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  window.Log = { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, pick, bindText, tagList, reducedMotion };
+  window.Log = { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, pick, bindText, tagList, reducedMotion, revealText, aiInfo };
 })();

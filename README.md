@@ -122,6 +122,12 @@ favicon.svg       タブのアイコン
       "next": "この作品で次に改善・追加したいこと",
       "carry": "次の作品で活かしたいこと"
     },
+    "ai": {
+      "none": false,
+      "uses": [
+        { "area": "コードレビュー・デバッグ相談", "tool": "ChatGPT", "detail": "どこまでAIを使ったか" }
+      ]
+    },
     "video": "https://www.youtube.com/watch?v=XXXXXXXXXXX",
     "screenshots": [
       { "src": "images/works/machine-buster/ss1.jpg", "caption": "説明" }
@@ -134,6 +140,7 @@ favicon.svg       タブのアイコン
 ```
 
 - 空の項目はページに出ません。必要な項目だけ埋めればOKです。
+- `ai` は AI の使用表示です。`uses` に書くと一覧に「AI使用」、AIを使っていないなら `"none": true` で「AI不使用」と出ます。両方空ならタグは出ません。
 - 並び順 = 表示順です。
 - 作品が3件以上・技術タグが2種類以上になると、一覧の上に「技術で絞り込む」ボタンが自動で出ます。
 - 動画は YouTube（限定公開でも可）を推奨。リポジトリに mp4 を入れると重くなります。

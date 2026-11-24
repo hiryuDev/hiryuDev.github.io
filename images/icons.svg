@@ -84,6 +84,11 @@
     <path d="M14 48L8 60" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
   </symbol>
 
+  <!-- きらめき（AIの使用） -->
+  <symbol id="i-spark" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M10 2l1.8 5.6L17.5 9.5l-5.7 1.9L10 17l-1.8-5.6L2.5 9.5l5.7-1.9zM18.5 13l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/>
+  </symbol>
+
   <!-- 地図のバツ印 -->
   <symbol id="i-mark" viewBox="0 0 24 24">
     <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>

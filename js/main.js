@@ -3,7 +3,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, bindText, reducedMotion } = window.Log;
+  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, bindText, reducedMotion, revealText, aiInfo } = window.Log;
 
   const $ = (id) => document.getElementById(id);
   const OPENED_KEY = 'captains-log-opened';
@@ -150,10 +150,12 @@
       renderSkills(site.skills || []);
       renderContact(site.contact || {}, site.links || []);
       fitCover();
+      revealText();
       if (location.hash) { const t = document.querySelector(location.hash); if (t) t.scrollIntoView(); }
     })
     .catch((err) => {
       console.error(err);
+      revealText();
       $('workList').append(h('li', { class: 'empty' },
         h('p', { class: 'empty__title', text: 'データを読み込めませんでした' }),
         h('p', { class: 'empty__text', text: 'ファイルを直接開いている場合は、README の「手元で確認する」の手順でローカルサーバーを起動してください。' })));
@@ -200,6 +202,7 @@
           h('p', { class: 'entry__date', text: [w.period, w.team].filter(Boolean).join(' ／ ') }),
           h('h3', { class: 'entry__title' }, h('a', { href: workUrl(w), text: w.title || w.id })),
           w.genre ? h('p', { class: 'entry__genre', text: w.genre }) : null,
+          aiLine(w),
           w.summary ? h('p', { class: 'entry__summary', text: w.summary }) : null,
           meta.length ? h('dl', { class: 'entry__meta' }, meta.map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { text: v })))) : null,
           h('a', { class: 'seal-link', href: workUrl(w), 'aria-label': `${w.title || w.id} の詳細を見る` },
@@ -209,6 +212,16 @@
     });
 
     buildFilter(works);
+  }
+
+  // 一覧に出すAI使用の表示
+  function aiLine(w) {
+    const ai = aiInfo(w);
+    if (!ai) return null;
+    if (ai.none) return h('p', { class: 'entry__ai' }, h('span', { class: 'ai-badge ai-badge--none', text: 'AI不使用' }));
+    return h('p', { class: 'entry__ai' },
+      h('span', { class: 'ai-badge ai-badge--used', text: 'AI使用' }),
+      ai.areas.length ? h('span', { class: 'entry__ai-areas', text: ai.areas.join('、') }) : null);
   }
 
   function buildFilter(works) {

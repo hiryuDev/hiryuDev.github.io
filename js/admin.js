@@ -31,6 +31,18 @@
     { key: 'languages', label: '使用言語', type: 'tags', placeholder: 'C++, HLSL' },
     { key: 'tech', label: '技術・ライブラリ・エンジン', type: 'tags', placeholder: 'DirectX 11, Photon Realtime' },
     { key: 'tools', label: '開発環境・ツール', type: 'tags', placeholder: 'Visual Studio, Git' },
+    { key: 'ai', label: 'AIの使用', type: 'group',
+      help: '何にAIを使ったかを書くと、一覧に「AI使用」タグ、詳細ページに内容が出ます。どちらも空ならタグは出ません。', fields: [
+      { key: 'none', label: 'この作品ではAIを使用していない（「AI不使用」と表示）', type: 'checkbox' },
+      { key: 'uses', label: 'AIを使った箇所', type: 'objects', addLabel: '使った箇所を追加', fields: [
+        { key: 'area', label: '何に使ったか', type: 'text', placeholder: 'コード生成',
+          options: ['コード生成', 'コードレビュー・デバッグ相談', '設計の相談', '画像・テクスチャ', '3Dモデル', 'BGM・効果音', '文章・テキスト', '翻訳'] },
+        { key: 'tool', label: '使ったAI', type: 'text', placeholder: 'ChatGPT',
+          options: ['ChatGPT', 'Claude', 'GitHub Copilot', 'Gemini', 'Cursor', 'Stable Diffusion', 'Midjourney'] },
+        { key: 'detail', label: '具体的な内容・範囲', type: 'textarea', rows: 2,
+          placeholder: '例：シェーダーの雛形を生成し、ライティングの計算は自分で書き直した' },
+      ] },
+    ] },
     { key: 'description', label: '作品紹介（詳細ページ）', type: 'textarea', rows: 6 },
     { key: 'responsibilities', label: '担当した箇所（1行に1つ）', type: 'lines', rows: 5 },
     { key: 'highlights', label: '技術的な工夫', type: 'objects', addLabel: '工夫を追加',
@@ -81,39 +93,39 @@
       fields: [{ key: 'label', label: '表示名', type: 'text' }, { key: 'url', label: 'URL', type: 'url' }] },
     { key: 'texts', label: '画面の文章（表紙・見出しなど）', type: 'group',
       help: '最初から入っているのが今サイトに出ている文章です。空欄にするとその文章は表示されません。', fields: [
-      { key: 'brand', label: 'サイト名（左上のロゴ横・ページ上部）', type: 'text', default: '航海日誌' },
+      { key: 'brand', label: 'サイト名（左上のロゴ横・ページ上部）', type: 'text', default: 'ゲーム開発ポートフォリオ' },
       { key: 'cover', label: '表紙', type: 'group', fields: [
-        { key: 'latin', label: '上の英字', type: 'text', default: "Captain's Log" },
-        { key: 'title', label: 'タイトル', type: 'text', default: '航海日誌' },
-        { key: 'sub', label: 'タイトル下の説明', type: 'text', default: 'ゲームプログラマー ポートフォリオ' },
+        { key: 'latin', label: '上の英字', type: 'text', default: 'Game Developer Portfolio' },
+        { key: 'title', label: 'タイトル', type: 'text', default: '制作ポートフォリオ' },
+        { key: 'sub', label: 'タイトル下の説明', type: 'text', default: 'ゲームプログラマーの制作記録' },
         { key: 'page', label: '表紙をめくった1ページ目の文', type: 'textarea', rows: 3,
-          default: 'この日誌を開いた者へ。\nここに記すは、ひとりの船長が\nコードを武器に挑んだ航海の記録である。' },
-        { key: 'hint', label: '表紙の下の案内', type: 'text', default: '表紙をクリックして日誌を開く' },
+          default: 'このポートフォリオをご覧いただき、ありがとうございます。\nここには、これまでに制作した作品や、開発を通じて学んだ技術、取り組んできたことをまとめています。\n一つひとつの制作経験を大切にしながら、技術と表現の幅を広げてきた記録です。' },
+        { key: 'hint', label: '表紙の下の案内', type: 'text', default: '表紙をクリックしてポートフォリオを見る' },
       ] },
       { key: 'intro', label: 'トップ（序のページ）', type: 'group', fields: [
-        { key: 'latin', label: '名前の上の英字', type: 'text', default: 'The log of a game programmer' },
-        { key: 'lead', label: '名前の下の紹介文（任意）', type: 'textarea', rows: 3, default: '',
+        { key: 'latin', label: '名前の上の英字', type: 'text', default: 'Game Programmer Portfolio' },
+        { key: 'lead', label: '名前の下の紹介文（任意）', type: 'textarea', rows: 3, default: 'ゲーム開発を通じて、アイデアを形にすることを目指しています。これまでの制作実績や使用技術、開発への取り組みを紹介します。',
           help: 'キャッチコピーと所属の下に出ます。空なら出ません。名前・志望・キャッチコピー・所属は「プロフィール」で編集します。' },
       ] },
       { key: 'chapters', label: '各ページの見出し（航海図の島の名前も同じものを使います）', type: 'group', fields: [
         { key: 'profile', label: 'プロフィールのページ', type: 'group', fields: [
-          { key: 'title', label: '見出し', type: 'text', default: '船長の素性' },
+          { key: 'title', label: '見出し', type: 'text', default: '自己紹介' },
           { key: 'plain', label: '小さい補足', type: 'text', default: 'プロフィール' } ] },
         { key: 'works', label: '作品のページ', type: 'group', fields: [
-          { key: 'title', label: '見出し', type: 'text', default: '戦果の記録' },
-          { key: 'plain', label: '小さい補足', type: 'text', default: '制作作品' } ] },
+          { key: 'title', label: '見出し', type: 'text', default: '制作実績' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: '制作したゲーム・作品' } ] },
         { key: 'skills', label: 'スキルのページ', type: 'group', fields: [
-          { key: 'title', label: '見出し', type: 'text', default: '武装と航海術' },
-          { key: 'plain', label: '小さい補足', type: 'text', default: 'スキル・使用技術' } ] },
+          { key: 'title', label: '見出し', type: 'text', default: '技術・スキル' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: '使用技術・開発環境' } ] },
         { key: 'contact', label: '連絡先のページ', type: 'group', fields: [
-          { key: 'title', label: '見出し', type: 'text', default: '寄港の手紙' },
-          { key: 'plain', label: '小さい補足', type: 'text', default: '連絡先' } ] },
+          { key: 'title', label: '見出し', type: 'text', default: 'お問い合わせ' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: 'ご連絡はこちら' } ] },
       ] },
       { key: 'worksEmpty', label: '作品が0件のときの文', type: 'group', fields: [
-        { key: 'title', label: '見出し', type: 'text', default: '宝箱はまだ空っぽです' },
-        { key: 'text', label: '説明', type: 'text', default: '船長はいま航海の真っ最中。戦果が積み込まれるまで、しばしお待ちを。' },
+        { key: 'title', label: '見出し', type: 'text', default: '現在、掲載できる作品はありません' },
+        { key: 'text', label: '説明', type: 'text', default: '現在、制作実績を整理しています。公開可能な作品から順次追加していく予定です。' },
       ] },
-      { key: 'footer', label: 'いちばん下のひとこと', type: 'text', default: '航海はまだ続く。' },
+      { key: 'footer', label: 'いちばん下のひとこと', type: 'text', default: 'ご覧いただきありがとうございました。' },
     ] },
   ];
 
@@ -230,8 +242,12 @@
   // GitHub Pages が「_」で始まるファイルを隠さないよう、.nojekyll が無ければ作る
   async function ensureNoJekyll() {
     try {
-      if (!(await getFile('.nojekyll'))) await putFile('.nojekyll', '', 'GitHub Pages 用に .nojekyll を追加');
-    } catch (err) { console.warn('.nojekyll を作れませんでした', err); }
+      // 中身は改行1つ（空ファイルを受け付けない環境があるため）
+      if (!(await getFile('.nojekyll'))) await putFile('.nojekyll', 'Cg==', 'GitHub Pages 用に .nojekyll を追加');
+    } catch (err) {
+      console.warn('.nojekyll を作れませんでした', err);
+      toast('.nojekyll を自動で作れませんでした。README の手順で手動で追加してください（画像が表示されない原因になります）。', 'error');
+    }
   }
 
   /* ---------- 接続 ---------- */
@@ -412,6 +428,7 @@
     else if (!/^[a-z0-9][a-z0-9-]*$/.test(v.id)) errors.push('作品IDは半角英小文字・数字・ハイフンで入力してください。');
     else if (state.works.some((w, i) => w.id === v.id && i !== state.editingIndex)) errors.push(`作品ID「${v.id}」はすでに使われています。`);
     if (!v.title) errors.push('タイトルを入力してください。');
+    if (v.ai && v.ai.none && (v.ai.uses || []).length) errors.push('「AIを使用していない」にチェックがありますが、「AIを使った箇所」も入っています。どちらかにしてください。');
     if (errors.length) { toast(errors.join(' '), 'error'); return false; }
     if (state.editingIndex >= 0) state.works[state.editingIndex] = v;
     else state.works.push(v);
@@ -524,6 +541,11 @@
       el = h('input', { id, type: def.type === 'url' ? 'url' : 'text', placeholder: def.placeholder || null, required: def.required || null, pattern: def.pattern || null });
       el.value = value ?? def.default ?? '';
       get = () => el.value.trim();
+      if (def.options) { // 候補から選べる（自由入力も可）
+        const listId = `${id}-list`;
+        el.setAttribute('list', listId);
+        return { el: wrap(def, id, h('div', null, el, h('datalist', { id: listId }, def.options.map((o) => h('option', { value: o }))))), get, input: el };
+      }
     }
     return { el: wrap(def, id, el), get, input: el };
   }

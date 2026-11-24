@@ -4,7 +4,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, bindText, tagList } = window.Log;
+  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, bindText, tagList, revealText, aiInfo } = window.Log;
   const $ = (id) => document.getElementById(id);
 
   const params = new URLSearchParams(location.search);
@@ -24,6 +24,7 @@
 
   loadData().then(({ site, works }) => {
     bindText(document, site);
+    revealText();
     window.__siteName = (site.texts && site.texts.brand) || (site.profile && site.profile.name ? `${site.profile.name} ポートフォリオ` : '');
     const list = publishedWorks(works);
     let work = list.find((w) => w.id === id);
@@ -32,6 +33,7 @@
     render(work, list);
   }).catch((err) => {
     console.error(err);
+    revealText();
     $('workBody').replaceChildren(h('p', { class: 'notfound', text: 'データを読み込めませんでした。' }));
   });
 
@@ -71,6 +73,19 @@
     const duties = (w.responsibilities || []).filter(Boolean);
     if (duties.length) main.append(section('担当した箇所', 'i-quill', h('ul', { class: 'duty-list' }, duties.map((d) => h('li', { text: d })))));
 
+    // AIの使用について
+    const ai = aiInfo(w);
+    if (ai && ai.none) {
+      main.append(section('AIの使用について', 'i-spark', h('p', { class: 'ai-note' },
+        h('span', { class: 'ai-badge ai-badge--none', text: 'AI不使用' }), 'この作品の制作では生成AIを使用していません。')));
+    } else if (ai) {
+      main.append(section('AIの使用について', 'i-spark', h('ul', { class: 'ai-list' }, ai.uses.map((u) => h('li', { class: 'ai-list__item' },
+        h('div', { class: 'ai-list__head' },
+          u.area ? h('span', { class: 'ai-list__area', text: u.area }) : null,
+          u.tool ? h('span', { class: 'ai-list__tool', text: u.tool }) : null),
+        u.detail ? h('p', { class: 'prose', text: u.detail }) : null)))));
+    }
+
     const feats = (w.highlights || []).filter((x) => x && (x.title || x.body));
     if (feats.length) main.append(section('技術的な工夫', 'i-helm', feats.map((f) => h('div', { class: 'feat' },
       f.title ? h('h3', { text: f.title }) : null,
@@ -101,6 +116,9 @@
     ].filter(([, v]) => v).map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { text: v })));
     const tagRows = [['使用言語', w.languages], ['技術・ライブラリ', w.tech], ['開発環境・ツール', w.tools]]
       .filter(([, v]) => v && v.length).map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', null, tagList(v))));
+    if (ai) tagRows.push(h('div', null, h('dt', { text: 'AIの使用' }), h('dd', null,
+      ai.none ? h('span', { class: 'ai-badge ai-badge--none', text: 'AI不使用' })
+              : (ai.areas.length ? tagList(ai.areas) : h('span', { class: 'ai-badge ai-badge--used', text: 'AI使用' })))));
 
     const side = h('aside', { class: 'work-side' });
     if (specRows.length || tagRows.length) side.append(h('div', { class: 'spec' }, h('h2', { text: '作品情報' }), h('dl', null, specRows, tagRows)));

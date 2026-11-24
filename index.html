@@ -17,7 +17,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Pirata+One&family=Shippori+Mincho+B1:wght@500;700;800&family=Shippori+Mincho:wght@400;600&display=swap">
   <link rel="stylesheet" href="css/style.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    // データを読み込んで文章を差し替えるまで、初期の文章を隠しておく（3秒たっても終わらなければ表示）
+    document.documentElement.classList.add('js', 'is-loading');
+    setTimeout(function () { document.documentElement.classList.remove('is-loading'); }, 3000);
+  </script>
 </head>
 <body class="page-home">
   <a class="skip-link" href="#log">本文へ移動</a>
@@ -27,9 +31,9 @@
     <div class="cover-stage__glow" aria-hidden="true"></div>
     <div class="book" id="book">
       <div class="book__page" aria-hidden="true">
-        <p class="book__page-text" data-bind="texts.cover.page">この日誌を開いた者へ。
-ここに記すは、ひとりの船長が
-コードを武器に挑んだ航海の記録である。</p>
+        <p class="book__page-text" data-bind="texts.cover.page">このポートフォリオをご覧いただき、ありがとうございます。
+ここには、これまでに制作した作品や、開発を通じて学んだ技術、取り組んできたことをまとめています。
+一つひとつの制作経験を大切にしながら、技術と表現の幅を広げてきた記録です。</p>
         <svg class="book__page-mark"><use href="images/icons.svg#i-compass"/></svg>
       </div>
       <button class="book__cover" id="openBook" type="button" aria-label="表紙を開いてポートフォリオを見る">
@@ -40,11 +44,11 @@
           <svg class="cover__corner cover__corner--br"><use href="images/icons.svg#i-corner"/></svg>
         </span>
         <span class="cover__content">
-          <span class="cover__latin" data-bind="texts.cover.latin">Captain's Log</span>
+          <span class="cover__latin" data-bind="texts.cover.latin">Game Developer Portfolio</span>
           <img class="cover__emblem" src="images/fx/emblem.png" alt="" aria-hidden="true">
-          <span class="cover__title" data-bind="texts.cover.title">航海日誌</span>
+          <span class="cover__title" data-bind="texts.cover.title">制作ポートフォリオ</span>
           <span class="cover__rule" aria-hidden="true"></span>
-          <span class="cover__sub" data-bind="texts.cover.sub">ゲームプログラマー ポートフォリオ</span>
+          <span class="cover__sub" data-bind="texts.cover.sub">ゲームプログラマーの制作記録</span>
           <span class="cover__owner" data-bind="profile.name">ひりゅう</span>
         </span>
         <span class="cover__clasp" aria-hidden="true"></span>
@@ -54,7 +58,7 @@
       </button>
       <span class="book__ribbon" aria-hidden="true"></span>
     </div>
-    <p class="cover-stage__hint" data-bind="texts.cover.hint">表紙をクリックして日誌を開く</p>
+    <p class="cover-stage__hint" data-bind="texts.cover.hint">表紙をクリックしてポートフォリオを見る</p>
     <button class="cover-stage__skip" id="skipCover" type="button">表紙をスキップ</button>
   </div>
 
@@ -63,7 +67,7 @@
     <div class="site-header__inner">
       <a class="brand" href="#top">
         <svg class="brand__mark" aria-hidden="true"><use href="images/icons.svg#i-skull"/></svg>
-        <span class="brand__text"><span data-bind="texts.brand">航海日誌</span><small data-bind="profile.name">ひりゅう</small></span>
+        <span class="brand__text"><span data-bind="texts.brand">ゲーム開発ポートフォリオ</span><small data-bind="profile.name">ひりゅう</small></span>
       </a>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav">
         <svg aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>
@@ -88,17 +92,17 @@
 
     <!-- ===== 序：はじめに ===== -->
     <article class="sheet sheet--intro" id="top" aria-labelledby="introTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>はじめに</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">ゲーム開発ポートフォリオ</span><span>はじめに</span></div>
 
       <div class="intro">
-        <p class="intro__latin" data-bind="texts.intro.latin">The log of a game programmer</p>
+        <p class="intro__latin" data-bind="texts.intro.latin">Game Programmer Portfolio</p>
         <h1 class="intro__title" id="introTitle">
           <span class="intro__name" data-bind="profile.name">ひりゅう</span>
           <span class="intro__role" data-bind="profile.role">ゲームプログラマー志望</span>
         </h1>
-        <p class="intro__catch" data-bind="profile.catchphrase"></p>
-        <p class="intro__school"><span data-bind="profile.school"></span> <span data-bind="profile.graduation"></span></p>
-        <p class="intro__lead" data-bind="texts.intro.lead"></p>
+        <p class="intro__catch" data-bind="profile.catchphrase">ここにキャッチコピーを書きます</p>
+        <p class="intro__school"><span data-bind="profile.school">HAL東京 ゲーム4年制学科 ゲーム制作コース</span> <span data-bind="profile.graduation">2028年3月 卒業見込み</span></p>
+        <p class="intro__lead" data-bind="texts.intro.lead">ゲーム開発を通じて、アイデアを形にすることを目指しています。これまでの制作実績や使用技術、開発への取り組みを紹介します。</p>
       </div>
 
       <!-- 航海図ナビゲーション -->
@@ -114,10 +118,10 @@
         </svg>
         <svg class="chart__rose" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>
         <ol class="chart__isles">
-          <li class="isle isle--1"><a href="#profile"><svg aria-hidden="true"><use href="images/icons.svg#i-quill"/></svg><span class="isle__name" data-bind="texts.chapters.profile.title">船長の素性</span><span class="isle__plain" data-bind="texts.chapters.profile.plain">プロフィール</span></a></li>
-          <li class="isle isle--2"><a href="#works"><svg aria-hidden="true"><use href="images/icons.svg#i-chest"/></svg><span class="isle__name" data-bind="texts.chapters.works.title">戦果の記録</span><span class="isle__plain" data-bind="texts.chapters.works.plain">制作作品</span></a></li>
-          <li class="isle isle--3"><a href="#skills"><svg aria-hidden="true"><use href="images/icons.svg#i-helm"/></svg><span class="isle__name" data-bind="texts.chapters.skills.title">武装と航海術</span><span class="isle__plain" data-bind="texts.chapters.skills.plain">スキル・使用技術</span></a></li>
-          <li class="isle isle--4"><a href="#contact"><svg aria-hidden="true"><use href="images/icons.svg#i-mark"/></svg><span class="isle__name" data-bind="texts.chapters.contact.title">寄港の手紙</span><span class="isle__plain" data-bind="texts.chapters.contact.plain">連絡先</span></a></li>
+          <li class="isle isle--1"><a href="#profile"><svg aria-hidden="true"><use href="images/icons.svg#i-quill"/></svg><span class="isle__name" data-bind="texts.chapters.profile.title">プロフィール</span><span class="isle__plain" data-bind="texts.chapters.profile.plain">自己紹介</span></a></li>
+          <li class="isle isle--2"><a href="#works"><svg aria-hidden="true"><use href="images/icons.svg#i-chest"/></svg><span class="isle__name" data-bind="texts.chapters.works.title">制作実績</span><span class="isle__plain" data-bind="texts.chapters.works.plain">制作したゲーム・作品</span></a></li>
+          <li class="isle isle--3"><a href="#skills"><svg aria-hidden="true"><use href="images/icons.svg#i-helm"/></svg><span class="isle__name" data-bind="texts.chapters.skills.title">技術・スキル</span><span class="isle__plain" data-bind="texts.chapters.skills.plain">使用技術・開発環境</span></a></li>
+          <li class="isle isle--4"><a href="#contact"><svg aria-hidden="true"><use href="images/icons.svg#i-mark"/></svg><span class="isle__name" data-bind="texts.chapters.contact.title">お問い合わせ</span><span class="isle__plain" data-bind="texts.chapters.contact.plain">ご連絡はこちら</span></a></li>
         </ol>
       </nav>
 
@@ -127,10 +131,10 @@
 
     <!-- ===== 壱：プロフィール ===== -->
     <section class="sheet" id="profile" aria-labelledby="profileTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>1 / 4</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">ゲーム開発ポートフォリオ</span><span>1 / 4</span></div>
       <h2 class="sheet__title" id="profileTitle">
-        <span class="sheet__title-theme" data-bind="texts.chapters.profile.title">船長の素性</span>
-        <span class="sheet__title-plain" data-bind="texts.chapters.profile.plain">プロフィール</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.profile.title">プロフィール</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.profile.plain">自己紹介</span>
       </h2>
 
       <div class="profile">
@@ -142,12 +146,13 @@
         </figure>
         <div class="profile__body">
           <dl class="ledger">
-            <div><dt>名前</dt><dd><span data-bind="profile.name"></span><span class="ledger__sub" data-bind="profile.nameEn"></span></dd></div>
-            <div><dt>志望</dt><dd data-bind="profile.role"></dd></div>
-            <div><dt>所属</dt><dd data-bind="profile.school"></dd></div>
-            <div><dt>卒業</dt><dd data-bind="profile.graduation"></dd></div>
+            <div><dt>名前</dt><dd><span data-bind="profile.name">ひりゅう</span><span class="ledger__sub" data-bind="profile.nameEn">Hiryu</span></dd></div>
+            <div><dt>志望</dt><dd data-bind="profile.role">ゲームプログラマー志望</dd></div>
+            <div><dt>所属</dt><dd data-bind="profile.school">HAL東京 ゲーム4年制学科 ゲーム制作コース</dd></div>
+            <div><dt>卒業</dt><dd data-bind="profile.graduation">2028年3月 卒業見込み</dd></div>
           </dl>
-          <p class="profile__bio prose" data-bind="profile.bio"></p>
+          <p class="profile__bio prose" data-bind="profile.bio">ここに自己紹介を書きます。
+admin.html の「プロフィール・スキル・連絡先」から編集できます。</p>
           <div class="profile__likes" id="likesWrap" hidden>
             <h3 class="minor-title">好きなもの・興味</h3>
             <ul class="likes" id="likesList"></ul>
@@ -162,10 +167,10 @@
 
     <!-- ===== 弐：作品 ===== -->
     <section class="sheet sheet--works" id="works" aria-labelledby="worksTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>2 / 4</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">ゲーム開発ポートフォリオ</span><span>2 / 4</span></div>
       <h2 class="sheet__title" id="worksTitle">
-        <span class="sheet__title-theme" data-bind="texts.chapters.works.title">戦果の記録</span>
-        <span class="sheet__title-plain" data-bind="texts.chapters.works.plain">制作作品</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.works.title">制作実績</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.works.plain">制作したゲーム・作品</span>
       </h2>
 
       <div class="filter" id="workFilter" role="group" aria-label="使用技術で絞り込む" hidden></div>
@@ -173,8 +178,8 @@
 
       <div class="empty" id="worksEmpty" hidden>
         <svg class="empty__chest" aria-hidden="true"><use href="images/icons.svg#i-chest"/></svg>
-        <p class="empty__title" data-bind="texts.worksEmpty.title">宝箱はまだ空っぽです</p>
-        <p class="empty__text" data-bind="texts.worksEmpty.text">船長はいま航海の真っ最中。戦果が積み込まれるまで、しばしお待ちを。</p>
+        <p class="empty__title" data-bind="texts.worksEmpty.title">現在、掲載できる作品はありません</p>
+        <p class="empty__text" data-bind="texts.worksEmpty.text">現在、制作実績を整理しています。公開可能な作品から順次追加していく予定です。</p>
       </div>
 
       <div class="sheet__folio" aria-hidden="true">2</div>
@@ -184,10 +189,10 @@
 
     <!-- ===== 参：スキル ===== -->
     <section class="sheet" id="skills" aria-labelledby="skillsTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>3 / 4</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">ゲーム開発ポートフォリオ</span><span>3 / 4</span></div>
       <h2 class="sheet__title" id="skillsTitle">
-        <span class="sheet__title-theme" data-bind="texts.chapters.skills.title">武装と航海術</span>
-        <span class="sheet__title-plain" data-bind="texts.chapters.skills.plain">スキル・使用技術</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.skills.title">技術・スキル</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.skills.plain">使用技術・開発環境</span>
       </h2>
       <p class="skills__legend" id="skillsLegend" hidden>
         コインの数は習熟度の目安です（5段階）。
@@ -200,13 +205,13 @@
 
     <!-- ===== 肆：連絡先 ===== -->
     <section class="sheet sheet--contact" id="contact" aria-labelledby="contactTitle">
-      <div class="sheet__runner"><span data-bind="texts.brand">航海日誌</span><span>4 / 4</span></div>
+      <div class="sheet__runner"><span data-bind="texts.brand">ゲーム開発ポートフォリオ</span><span>4 / 4</span></div>
       <h2 class="sheet__title" id="contactTitle">
-        <span class="sheet__title-theme" data-bind="texts.chapters.contact.title">寄港の手紙</span>
-        <span class="sheet__title-plain" data-bind="texts.chapters.contact.plain">連絡先</span>
+        <span class="sheet__title-theme" data-bind="texts.chapters.contact.title">お問い合わせ</span>
+        <span class="sheet__title-plain" data-bind="texts.chapters.contact.plain">ご連絡はこちら</span>
       </h2>
       <div class="letter">
-        <p class="letter__message prose" data-bind="contact.message"></p>
+        <p class="letter__message prose" data-bind="contact.message">ご質問・ご連絡はメールにてお願いいたします。</p>
         <a class="seal-button" id="mailButton" href="#" hidden>
           <span class="seal-button__seal" aria-hidden="true"><svg class="seal-button__icon"><use href="images/icons.svg#i-mail"/></svg></span>
           <span class="seal-button__label">メールを送る<small id="mailAddress"></small></span>
@@ -218,7 +223,7 @@
   </main>
 
   <footer class="site-footer">
-    <p class="site-footer__end" data-bind="texts.footer">航海はまだ続く。</p>
+    <p class="site-footer__end" data-bind="texts.footer">ご覧いただきありがとうございました。</p>
     <button class="text-button" id="replayCover" type="button">表紙をもう一度見る</button>
     <p class="site-footer__copy">&copy; <span id="year"></span> <span data-bind="profile.name">ひりゅう</span></p>
   </footer>
