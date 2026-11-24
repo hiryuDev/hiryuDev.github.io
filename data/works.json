@@ -92,6 +92,11 @@
     },
     "video": "",
     "screenshots": [],
-    "links": []
+    "links": [],
+    "stage": "完成",
+    "ai": {
+      "none": false,
+      "uses": []
+    }
   }
 ]
