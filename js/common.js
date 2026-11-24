@@ -106,9 +106,16 @@
     return null;
   }
 
+  /** 作品の状態（完成・プロトタイプなど）をスタンプとして作る */
+  function stageStamp(w) {
+    const v = w && typeof w.stage === 'string' ? w.stage.trim() : '';
+    if (!v) return null;
+    return h('span', { class: `stamp${/完成|リリース/.test(v) ? ' stamp--done' : ''}`, text: v });
+  }
+
   function reducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  window.Log = { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, pick, bindText, tagList, reducedMotion, revealText, aiInfo };
+  window.Log = { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, pick, bindText, tagList, reducedMotion, revealText, aiInfo, stageStamp };
 })();

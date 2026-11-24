@@ -3,7 +3,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, bindText, reducedMotion, revealText, aiInfo } = window.Log;
+  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, bindText, reducedMotion, revealText, aiInfo, stageStamp } = window.Log;
 
   const $ = (id) => document.getElementById(id);
   const OPENED_KEY = 'captains-log-opened';
@@ -200,10 +200,10 @@
         ['技術', (w.tech || []).join('、')],
       ].filter(([, v]) => v);
 
-      const li = h('li', { class: `entry${w.featured ? ' entry--featured' : ''}`, 'data-tags': JSON.stringify([...(w.languages || []), ...(w.tech || [])]) },
+      const li = h('li', { class: `entry${w.featured ? ' entry--featured' : ''}`, 'data-tags': JSON.stringify(workTags(w)) },
         plate,
         h('div', { class: 'entry__body' },
-          h('p', { class: 'entry__date', text: [w.period, w.team].filter(Boolean).join(' ／ ') }),
+          h('p', { class: 'entry__date' }, stageStamp(w), [w.period, w.team].filter(Boolean).join(' ／ ')),
           h('h3', { class: 'entry__title' }, h('a', { href: workUrl(w), text: w.title || w.id })),
           w.genre ? h('p', { class: 'entry__genre', text: w.genre }) : null,
           aiLine(w),
@@ -228,10 +228,15 @@
       ai.areas.length ? h('span', { class: 'entry__ai-areas', text: ai.areas.join('、') }) : null);
   }
 
+  // 絞り込みに使うタグ（状態 → 言語 → 技術の順）
+  function workTags(w) {
+    return [...new Set([(w.stage || '').trim(), ...(w.languages || []), ...(w.tech || [])].filter(Boolean))];
+  }
+
   function buildFilter(works) {
-    const count = new Map();
-    works.forEach((w) => [...(w.languages || []), ...(w.tech || [])].forEach((t) => count.set(t, (count.get(t) || 0) + 1)));
-    const tags = [...count.keys()];
+    const stages = [...new Set(works.map((w) => (w.stage || '').trim()).filter(Boolean))];
+    const techs = [...new Set(works.flatMap((w) => [...(w.languages || []), ...(w.tech || [])]))].filter((t) => !stages.includes(t));
+    const tags = [...stages, ...techs];
     if (works.length < 3 || tags.length < 2) return;
 
     const box = $('workFilter');
@@ -248,7 +253,9 @@
       buttons.push(b);
       return b;
     };
-    box.append(make('すべて', null), ...tags.map((t) => make(t, t)));
+    box.append(make('すべて', null), ...stages.map((t) => make(t, t)),
+      stages.length && techs.length ? h('span', { class: 'filter__sep', 'aria-hidden': 'true' }) : null,
+      ...techs.map((t) => make(t, t)));
   }
 
   /* ---------- インターンシップ ---------- */

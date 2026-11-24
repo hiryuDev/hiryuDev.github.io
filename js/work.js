@@ -4,7 +4,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, bindText, tagList, revealText, aiInfo } = window.Log;
+  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, bindText, tagList, revealText, aiInfo, stageStamp } = window.Log;
   const $ = (id) => document.getElementById(id);
 
   const params = new URLSearchParams(location.search);
@@ -24,6 +24,10 @@
 
   loadData().then(({ site, works }) => {
     bindText(document, site);
+    // インターンシップが登録されていれば目次に出す
+    if ((site.internships || []).some((it) => it && (it.company || it.program))) {
+      document.querySelectorAll('[data-section="internship"]').forEach((el) => { el.hidden = false; });
+    }
     revealText();
     window.__siteName = (site.texts && site.texts.brand) || (site.profile && site.profile.name ? `${site.profile.name} ポートフォリオ` : '');
     const list = publishedWorks(works);
@@ -58,7 +62,7 @@
 
     // 見出し
     body.push(h('header', { class: 'work-head' },
-      w.genre ? h('p', { class: 'work-head__genre', text: w.genre }) : null,
+      (w.genre || w.stage) ? h('p', { class: 'work-head__genre' }, w.genre || null, stageStamp(w)) : null,
       h('h1', { class: 'work-head__title', text: w.title || w.id }),
       w.subtitle ? h('p', { class: 'work-head__subtitle', text: w.subtitle }) : null));
 
@@ -112,7 +116,7 @@
 
     // 横の仕様欄
     const specRows = [
-      ['制作期間', w.period], ['制作体制', w.team], ['担当', w.role], ['対応環境', w.platform],
+      ['状態', (w.stage || '').trim()], ['制作期間', w.period], ['制作体制', w.team], ['担当', w.role], ['対応環境', w.platform],
     ].filter(([, v]) => v).map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { text: v })));
     const tagRows = [['使用言語', w.languages], ['技術・ライブラリ', w.tech], ['開発環境・ツール', w.tools]]
       .filter(([, v]) => v && v.length).map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', null, tagList(v))));
