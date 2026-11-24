@@ -107,6 +107,10 @@
       "contact": {
         "title": "お問い合わせ",
         "plain": "ご連絡はこちら"
+      },
+      "internship": {
+        "title": "インターンシップ",
+        "plain": "参加した就業体験"
       }
     },
     "worksEmpty": {
@@ -114,5 +118,37 @@
       "text": "現在、制作実績を整理しています。公開可能な作品から順次追加していく予定です。"
     },
     "footer": "ご覧いただきありがとうございました。"
-  }
+  },
+  "internships": [
+    {
+      "company": "株式会社マーベラス",
+      "program": "",
+      "period": "",
+      "format": "対面・オンライン併用",
+      "content": "",
+      "work": "",
+      "learned": "",
+      "url": ""
+    },
+    {
+      "company": "株式会社セガ",
+      "program": "",
+      "period": "",
+      "format": "対面",
+      "content": "",
+      "work": "",
+      "learned": "",
+      "url": ""
+    },
+    {
+      "company": "株式会社バンダイナムコスタジオ",
+      "program": "",
+      "period": "",
+      "format": "オンライン",
+      "content": "",
+      "work": "",
+      "learned": "",
+      "url": ""
+    }
+  ]
 }
