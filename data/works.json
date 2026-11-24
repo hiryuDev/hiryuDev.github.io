@@ -43,6 +43,16 @@
     "outlook": {
       "next": "さｄｄ",
       "carry": "だあｗｓ"
+    },
+    "ai": {
+      "none": false,
+      "uses": [
+        {
+          "area": "オセロ部分のコード生成、Photon実装時のコードレビュー",
+          "tool": "Claude",
+          "detail": "土台となるオセロ部分はAIに任せ、Photonを使う部分は自分で書いた"
+        }
+      ]
     }
   },
   {
