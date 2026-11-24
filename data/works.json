@@ -53,7 +53,8 @@
           "detail": "土台となるオセロ部分はAIに任せ、Photonを使う部分は自分で書いた"
         }
       ]
-    }
+    },
+    "stage": "技術デモ"
   },
   {
     "published": true,
