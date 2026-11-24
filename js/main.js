@@ -121,7 +121,7 @@
       navLinks.forEach((a) => a.setAttribute('aria-current', String(a.getAttribute('href') === `#${en.target.id}`)));
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
-  ['profile', 'works', 'skills', 'contact'].forEach((id) => { const el = $(id); if (el) io.observe(el); });
+  ['profile', 'works', 'internship', 'skills', 'contact'].forEach((id) => { const el = $(id); if (el) io.observe(el); });
 
   // スクロール量に合わせて小舟が進む
   const ship = $('voyageShip');
@@ -147,6 +147,8 @@
       bindText(document, site);
       renderProfile(site.profile || {});
       renderWorks(publishedWorks(works));
+      renderInternships(site.internships || []);
+      numberPages();
       renderSkills(site.skills || []);
       renderContact(site.contact || {}, site.links || []);
       fitCover();
@@ -155,6 +157,8 @@
     })
     .catch((err) => {
       console.error(err);
+      renderInternships([]);
+      numberPages();
       revealText();
       $('workList').append(h('li', { class: 'empty' },
         h('p', { class: 'empty__title', text: 'データを読み込めませんでした' }),
@@ -245,6 +249,37 @@
       return b;
     };
     box.append(make('すべて', null), ...tags.map((t) => make(t, t)));
+  }
+
+  /* ---------- インターンシップ ---------- */
+  function renderInternships(items) {
+    const list = items.filter((it) => it && (it.company || it.program));
+    const show = list.length > 0;
+    // 1件も無ければ、ページ・目次・案内図の島をまとめて隠す
+    document.querySelectorAll('[data-section="internship"]').forEach((el) => { el.hidden = !show; });
+    document.querySelector('.chart').classList.toggle('chart--5', show);
+    if (!show) return;
+    const ol = $('internList');
+    ol.replaceChildren(...list.map((it) => {
+      const url = safeUrl(it.url);
+      const meta = [it.period, it.format].filter(Boolean).join(' ／ ');
+      const rows = [['内容', it.content], ['取り組んだこと', it.work], ['学んだこと', it.learned]].filter(([, v]) => v);
+      return h('li', { class: 'intern' },
+        h('p', { class: 'intern__meta', text: meta }),
+        h('h3', { class: 'intern__company' }, url ? h('a', { href: url, target: '_blank', rel: 'noopener', text: it.company || it.program }) : (it.company || it.program)),
+        it.company && it.program ? h('p', { class: 'intern__program', text: it.program }) : null,
+        rows.length ? h('dl', { class: 'intern__rows' }, rows.map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { class: 'prose', text: v })))) : null);
+    }));
+  }
+
+  /* 見えているページだけで「1 / 5」のように番号を振る */
+  function numberPages() {
+    const sheets = [...document.querySelectorAll('#log > section.sheet')].filter((s) => !s.hidden);
+    sheets.forEach((s, i) => {
+      const no = s.querySelector('.sheet__no'); const folio = s.querySelector('.sheet__folio');
+      if (no) no.textContent = `${i + 1} / ${sheets.length}`;
+      if (folio) folio.textContent = String(i + 1);
+    });
   }
 
   function renderSkills(groups) {

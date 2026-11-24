@@ -76,6 +76,18 @@
       { key: 'bio', label: '自己紹介', type: 'textarea', rows: 6 },
       { key: 'likes', label: '好きなもの・興味（1行に1つ）', type: 'lines', rows: 4 },
     ] },
+    { key: 'internships', label: 'インターンシップ', type: 'objects', addLabel: 'インターンシップを追加',
+      help: '上にあるものから順に表示されます（新しいものを上に）。1件も無ければページごと表示されません。社名やプログラムの内容を公開してよいか、念のため確認してから書いてください。',
+      fields: [
+        { key: 'company', label: '企業名', type: 'text', placeholder: '株式会社〇〇' },
+        { key: 'program', label: 'プログラム名・職種', type: 'text', placeholder: 'ゲームプログラマー 職業体験インターンシップ' },
+        { key: 'period', label: '時期・期間', type: 'text', placeholder: '2026年8月（5日間）' },
+        { key: 'format', label: '形式', type: 'text', placeholder: '対面', options: ['対面', 'オンライン', '対面・オンライン併用'] },
+        { key: 'content', label: '内容', type: 'textarea', rows: 3, placeholder: '例：チームで小規模なゲームを企画から制作し、最終日に発表した' },
+        { key: 'work', label: '自分が取り組んだこと', type: 'textarea', rows: 3, placeholder: '例：プレイヤーの移動と当たり判定を担当した' },
+        { key: 'learned', label: '学んだこと・気づき', type: 'textarea', rows: 3, placeholder: '例：レビューで指摘を受けて、読みやすいコードの書き方を意識するようになった' },
+        { key: 'url', label: '関連リンク（任意）', type: 'url', placeholder: 'https://' },
+      ] },
     { key: 'skills', label: 'スキル', type: 'objects', addLabel: '分類を追加', help: '習熟度を「表示しない」にすると金貨が出ません。',
       fields: [
         { key: 'category', label: '分類名', type: 'text', placeholder: '言語 / ライブラリ・エンジン / ツール' },
@@ -114,6 +126,9 @@
         { key: 'works', label: '作品のページ', type: 'group', fields: [
           { key: 'title', label: '見出し', type: 'text', default: '制作実績' },
           { key: 'plain', label: '小さい補足', type: 'text', default: '制作したゲーム・作品' } ] },
+        { key: 'internship', label: 'インターンシップのページ', type: 'group', fields: [
+          { key: 'title', label: '見出し', type: 'text', default: 'インターンシップ' },
+          { key: 'plain', label: '小さい補足', type: 'text', default: '参加した就業体験' } ] },
         { key: 'skills', label: 'スキルのページ', type: 'group', fields: [
           { key: 'title', label: '見出し', type: 'text', default: '技術・スキル' },
           { key: 'plain', label: '小さい補足', type: 'text', default: '使用技術・開発環境' } ] },

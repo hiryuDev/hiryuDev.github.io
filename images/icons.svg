@@ -84,6 +84,18 @@
     <path d="M14 48L8 60" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
   </symbol>
 
+  <!-- 望遠鏡（インターンシップ） -->
+  <symbol id="i-spyglass" viewBox="0 0 64 64">
+    <g fill="currentColor">
+      <path d="M6 40.5l9.5-3.4 3.6 10-9.5 3.4z"/>
+      <path d="M17.5 36.4l13.4-4.8 4.3 11.9-13.4 4.8z"/>
+      <path d="M33 30.8l19-6.8 5.2 14.4-19 6.8z"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+      <path d="M27 46l-6 14M31 45l7 15"/>
+    </g>
+  </symbol>
+
   <!-- きらめき（AIの使用） -->
   <symbol id="i-spark" viewBox="0 0 24 24">
     <path fill="currentColor" d="M10 2l1.8 5.6L17.5 9.5l-5.7 1.9L10 17l-1.8-5.6L2.5 9.5l5.7-1.9zM18.5 13l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/>

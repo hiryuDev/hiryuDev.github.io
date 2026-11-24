@@ -14,7 +14,7 @@ index.html        トップ（表紙 → プロフィール / 作品一覧 / ス
 work.html         作品の詳細ページ（work.html?id=作品ID）
 admin.html        船長室＝自分専用の編集画面（サイトからはリンクしていません）
 
-data/site.json    プロフィール・スキル・連絡先・外部リンク
+data/site.json    プロフィール・インターンシップ・スキル・連絡先・外部リンク・画面の文章
 data/works.json   作品の一覧（いまは空っぽ = []）
 
 css/style.css     サイトの見た目（色や文字は先頭の :root で一括変更）
@@ -169,6 +169,7 @@ VS Code なら拡張機能「Live Server」で `index.html` を開くのが手�
 | 色を変える | `css/style.css` 冒頭の `--crimson` `--gold` `--parchment` など |
 | 文字（フォント）を変える | 各HTMLの Google Fonts の `<link>` と、`--f-display` `--f-body` |
 | ページ（章）を増やす | `index.html` の `<section class="sheet">` を複製し、目次と航海図の島を足す |
+| インターンシップを追加する | 船長室の「プロフィール・スキル・連絡先」タブ →「インターンシップ」（1件も無ければページごと非表示） |
 | 作品の入力項目を増やす | `js/admin.js` の `WORK_FIELDS` に1行足す → `js/work.js` の `render()` に表示を足す |
 | 紙や革の質感・封蝋・金貨の見た目を変える | `images/fx/` の画像を差し替える（同じ名前・同じくらいの大きさで） |
 | 飾りの絵を変える・足す | `images/icons.svg` に `<symbol id="i-xxx">` を足し、`<use href="images/icons.svg#i-xxx">` で使う |
