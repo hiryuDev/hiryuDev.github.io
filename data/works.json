@@ -97,6 +97,10 @@
     "ai": {
       "none": false,
       "uses": []
-    }
+    },
+    "platforms": [
+      "directx"
+    ],
+    "playUrl": ""
   }
 ]
