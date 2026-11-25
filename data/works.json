@@ -54,7 +54,11 @@
         }
       ]
     },
-    "stage": "技術デモ"
+    "stage": "技術デモ",
+    "platforms": [
+      "directx"
+    ],
+    "playUrl": ""
   },
   {
     "published": true,
