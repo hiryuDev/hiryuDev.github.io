@@ -106,5 +106,42 @@
       "directx"
     ],
     "playUrl": ""
+  },
+  {
+    "published": true,
+    "id": "captured-factory",
+    "featured": false,
+    "title": "鹵獲工場",
+    "subtitle": "",
+    "genre": "",
+    "stage": "プロトタイプ",
+    "platforms": [
+      "unityroom"
+    ],
+    "playUrl": "https://unityroom.com/games/captured_factory",
+    "thumbnail": "",
+    "summary": "",
+    "period": "",
+    "team": "",
+    "role": "",
+    "platform": "",
+    "languages": [],
+    "tech": [],
+    "tools": [],
+    "ai": {
+      "none": false,
+      "uses": []
+    },
+    "description": "",
+    "responsibilities": [],
+    "highlights": [],
+    "challenges": [],
+    "outlook": {
+      "next": "",
+      "carry": ""
+    },
+    "video": "",
+    "screenshots": [],
+    "links": []
   }
 ]
