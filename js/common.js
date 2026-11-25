@@ -106,6 +106,34 @@
     return null;
   }
 
+  /**
+   * 作品の分類（作品一覧のタブ）。増やすときはここと js/admin.js の PLATFORMS の両方に足す。
+   * id は保存される値、label は画面に出る名前。
+   */
+  const PLATFORMS = [
+    { id: 'switch', label: 'Switch' },
+    { id: 'unityroom', label: 'unityroom' },
+    { id: 'directx', label: 'DirectX' },
+  ];
+  function platformsOf(w) {
+    const ids = Array.isArray(w && w.platforms) ? w.platforms : [];
+    return PLATFORMS.filter((p) => ids.includes(p.id));
+  }
+  function platformTags(w) {
+    const ps = platformsOf(w);
+    if (!ps.length) return null;
+    return h('ul', { class: 'platforms', 'aria-label': '分類' }, ps.map((p) => h('li', { class: `platform platform--${p.id}`, text: p.label })));
+  }
+
+  /** 遊べるURLがあれば「○○で遊ぶ」ボタンを作る */
+  function playButton(w, small) {
+    const url = safeUrl(w && w.playUrl);
+    if (!url) return null;
+    const where = /unityroom\.com/i.test(url) ? 'unityroomで遊ぶ' : /itch\.io/i.test(url) ? 'itch.ioで遊ぶ' : 'ブラウザで遊ぶ';
+    return h('a', { class: `play-button${small ? ' play-button--small' : ''}`, href: url, target: '_blank', rel: 'noopener' },
+      icon('i-play', 'play-button__icon'), h('span', { text: where }));
+  }
+
   /** 作品の状態（完成・プロトタイプなど）をスタンプとして作る */
   function stageStamp(w) {
     const v = w && typeof w.stage === 'string' ? w.stage.trim() : '';
@@ -117,5 +145,5 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  window.Log = { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, pick, bindText, tagList, reducedMotion, revealText, aiInfo, stageStamp };
+  window.Log = { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, pick, bindText, tagList, reducedMotion, revealText, aiInfo, stageStamp, PLATFORMS, platformsOf, platformTags, playButton };
 })();

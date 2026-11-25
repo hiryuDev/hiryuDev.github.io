@@ -102,6 +102,8 @@ favicon.svg       タブのアイコン
     "subtitle": "サブタイトル",
     "genre": "3Dアクション",
     "stage": "プロトタイプ",
+    "platforms": ["directx", "switch"],
+    "playUrl": "https://unityroom.com/games/xxxx",
     "thumbnail": "images/works/machine-buster/thumb.jpg",
     "summary": "一覧に出る一言紹介",
     "period": "2026.04 〜 2026.07（約3か月）",
@@ -142,6 +144,7 @@ favicon.svg       タブのアイコン
 
 - 空の項目はページに出ません。必要な項目だけ埋めればOKです。
 - `stage` は作品の状態（完成・開発中・プロトタイプ・技術デモなど）。スタンプのように表示され、絞り込みにも使われます。
+- `platforms` は作品一覧のタブの分類（`switch` / `unityroom` / `directx`、複数可）。`playUrl` を入れると「unityroomで遊ぶ」ボタンが出ます。分類を増やすときは `js/common.js` と `js/admin.js` の `PLATFORMS` に1行ずつ足します。
 - `ai` は AI の使用表示です。`uses` に書くと一覧に「AI使用」、AIを使っていないなら `"none": true` で「AI不使用」と出ます。両方空ならタグは出ません。
 - 並び順 = 表示順です。
 - 作品が3件以上・技術タグが2種類以上になると、一覧の上に「技術で絞り込む」ボタンが自動で出ます。

@@ -3,7 +3,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, bindText, reducedMotion, revealText, aiInfo, stageStamp } = window.Log;
+  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, bindText, reducedMotion, revealText, aiInfo, stageStamp, PLATFORMS, platformsOf, platformTags, playButton } = window.Log;
 
   const $ = (id) => document.getElementById(id);
   const OPENED_KEY = 'captains-log-opened';
@@ -200,21 +200,26 @@
         ['技術', (w.tech || []).join('、')],
       ].filter(([, v]) => v);
 
-      const li = h('li', { class: `entry${w.featured ? ' entry--featured' : ''}`, 'data-tags': JSON.stringify(workTags(w)) },
+      const li = h('li', { class: `entry${w.featured ? ' entry--featured' : ''}`,
+        'data-tags': JSON.stringify(workTags(w)), 'data-platforms': JSON.stringify(platformsOf(w).map((p) => p.id)) },
         plate,
         h('div', { class: 'entry__body' },
           h('p', { class: 'entry__date' }, stageStamp(w), [w.period, w.team].filter(Boolean).join(' ／ ')),
           h('h3', { class: 'entry__title' }, h('a', { href: workUrl(w), text: w.title || w.id })),
+          platformTags(w),
           w.genre ? h('p', { class: 'entry__genre', text: w.genre }) : null,
           aiLine(w),
           w.summary ? h('p', { class: 'entry__summary', text: w.summary }) : null,
           meta.length ? h('dl', { class: 'entry__meta' }, meta.map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { text: v })))) : null,
-          h('a', { class: 'seal-link', href: workUrl(w), 'aria-label': `${w.title || w.id} の詳細を見る` },
-            h('span', { class: 'seal-link__seal', 'aria-hidden': 'true' }, icon('i-quill', 'seal-link__icon')),
-            h('span', { text: '詳細を見る' }))));
+          h('div', { class: 'entry__actions' },
+            h('a', { class: 'seal-link', href: workUrl(w), 'aria-label': `${w.title || w.id} の詳細を見る` },
+              h('span', { class: 'seal-link__seal', 'aria-hidden': 'true' }, icon('i-quill', 'seal-link__icon')),
+              h('span', { text: '詳細を見る' })),
+            playButton(w, true))));
       list.append(li);
     });
 
+    buildTabs(works);
     buildFilter(works);
   }
 
@@ -233,6 +238,40 @@
     return [...new Set([(w.stage || '').trim(), ...(w.languages || []), ...(w.tech || [])].filter(Boolean))];
   }
 
+  /* 一覧の絞り込み：分類タブ × 状態・技術ボタン（両方に当てはまる作品だけ出す） */
+  const filterState = { platform: null, tag: null };
+  function applyFilter() {
+    let shown = 0;
+    document.querySelectorAll('#workList .entry').forEach((li) => {
+      const okP = !filterState.platform || JSON.parse(li.dataset.platforms).includes(filterState.platform);
+      const okT = !filterState.tag || JSON.parse(li.dataset.tags).includes(filterState.tag);
+      li.hidden = !(okP && okT);
+      if (!li.hidden) shown += 1;
+    });
+    $('worksNoMatch').hidden = shown > 0;
+  }
+
+  function buildTabs(works) {
+    const used = PLATFORMS.filter((p) => works.some((w) => platformsOf(w).some((x) => x.id === p.id)));
+    if (!used.length) return;
+    const box = $('workTabs');
+    box.hidden = false;
+    const tabs = [];
+    const make = (label, id) => {
+      const n = id ? works.filter((w) => platformsOf(w).some((x) => x.id === id)).length : works.length;
+      const b = h('button', { type: 'button', class: `tab${id ? ` tab--${id}` : ''}`, 'aria-pressed': String(id === null) },
+        h('span', { text: label }), h('span', { class: 'tab__count', text: String(n) }));
+      b.addEventListener('click', () => {
+        tabs.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        filterState.platform = id;
+        applyFilter();
+      });
+      tabs.push(b);
+      return b;
+    };
+    box.append(make('すべて', null), ...used.map((p) => make(p.label, p.id)));
+  }
+
   function buildFilter(works) {
     const stages = [...new Set(works.map((w) => (w.stage || '').trim()).filter(Boolean))];
     const techs = [...new Set(works.flatMap((w) => [...(w.languages || []), ...(w.tech || [])]))].filter((t) => !stages.includes(t));
@@ -246,9 +285,8 @@
       const b = h('button', { type: 'button', 'aria-pressed': String(value === null), text: label });
       b.addEventListener('click', () => {
         buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-        document.querySelectorAll('#workList .entry').forEach((li) => {
-          li.hidden = value !== null && !JSON.parse(li.dataset.tags).includes(value);
-        });
+        filterState.tag = value;
+        applyFilter();
       });
       buttons.push(b);
       return b;
@@ -257,6 +295,7 @@
       stages.length && techs.length ? h('span', { class: 'filter__sep', 'aria-hidden': 'true' }) : null,
       ...techs.map((t) => make(t, t)));
   }
+
 
   /* ---------- インターンシップ ---------- */
   function renderInternships(items) {

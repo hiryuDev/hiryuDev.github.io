@@ -10,6 +10,13 @@
 (function () {
   'use strict';
 
+  /* ---------- 作品の分類（作品一覧のタブ）。js/common.js の PLATFORMS と同じものを書く ---------- */
+  const PLATFORMS = [
+    { id: 'switch', label: 'Switch' },
+    { id: 'unityroom', label: 'unityroom' },
+    { id: 'directx', label: 'DirectX' },
+  ];
+
   /* ---------- 入力項目の定義 ---------- */
   // type: text / url / textarea / lines(1行1項目の配列) / tags(カンマ区切りの配列)
   //       checkbox / level(0〜5) / image / group(入れ子) / objects(行を増やせる表)
@@ -24,6 +31,10 @@
     { key: 'stage', label: '作品の状態（タグ）', type: 'text', placeholder: 'プロトタイプ',
       options: ['完成', '開発中', 'プロトタイプ', 'デモ版', '技術デモ', 'ゲームジャム作品'],
       help: '一覧と詳細ページにスタンプのように表示されます。候補から選ぶか、自由に入力できます。空なら表示されません。' },
+    { key: 'platforms', label: '分類（作品一覧のタブ）', type: 'checks', options: PLATFORMS,
+      help: '当てはまるものに全部チェック。作品一覧の上のタブで切り替えられるようになります。' },
+    { key: 'playUrl', label: '遊べるURL（unityroom など）', type: 'url', placeholder: 'https://unityroom.com/games/…',
+      help: '入れると一覧と作品ページに「unityroomで遊ぶ」ボタンが出ます。' },
     { key: 'thumbnail', label: 'サムネイル画像', type: 'image', dir: (ctx) => `images/works/${ctx.id || 'misc'}`,
       help: '16:9 の画像がきれいに収まります。jpg / png / webp 推奨、1MB程度まで。' },
     { key: 'summary', label: '一言紹介（一覧に表示）', type: 'textarea', rows: 2 },
@@ -528,6 +539,7 @@
       case 'group': return buildGroup(def.fields, value || {}, ctx, def);
       case 'objects': return buildObjects(def, Array.isArray(value) ? value : [], ctx);
       case 'checkbox': return buildCheckbox(def, value);
+      case 'checks': return buildChecks(def, Array.isArray(value) ? value : []);
       case 'image': return buildImage(def, value, ctx);
       default: return buildInput(def, value);
     }
@@ -574,6 +586,19 @@
     input.checked = value === undefined ? !!def.default : !!value;
     const el = h('div', { class: 'field field--checkbox' }, h('label', { class: 'check', for: id }, input, def.label));
     return { el, get: () => input.checked, input };
+  }
+
+  // 複数選べるチェックボックス。選んだ id の配列を返す
+  function buildChecks(def, value) {
+    const boxes = def.options.map((o) => {
+      const id = nextId();
+      const input = h('input', { id, type: 'checkbox', value: o.id });
+      input.checked = value.includes(o.id);
+      return { input, el: h('label', { class: 'check', for: id }, input, o.label) };
+    });
+    const el = h('fieldset', { class: 'field field--checks' }, h('legend', { class: 'field__label', text: def.label }),
+      h('div', { class: 'checks' }, boxes.map((b) => b.el)), def.help ? h('p', { class: 'field__help', text: def.help }) : null);
+    return { el, get: () => boxes.filter((b) => b.input.checked).map((b) => b.input.value) };
   }
 
   function buildImage(def, value, ctx) {

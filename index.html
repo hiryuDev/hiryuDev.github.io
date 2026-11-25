@@ -176,8 +176,10 @@ admin.html の「プロフィール・スキル・連絡先」から編集でき
         <span class="sheet__title-plain" data-bind="texts.chapters.works.plain">制作したゲーム・作品</span>
       </h2>
 
-      <div class="filter" id="workFilter" role="group" aria-label="使用技術で絞り込む" hidden></div>
+      <div class="tabs" id="workTabs" role="group" aria-label="分類で切り替える" hidden></div>
+      <div class="filter" id="workFilter" role="group" aria-label="状態・使用技術で絞り込む" hidden></div>
       <ol class="entries" id="workList" aria-live="polite"></ol>
+      <p class="no-match" id="worksNoMatch" hidden>この条件に当てはまる作品はありません。「すべて」を押すと全作品に戻ります。</p>
 
       <div class="empty" id="worksEmpty" hidden>
         <svg class="empty__chest" aria-hidden="true"><use href="images/icons.svg#i-chest"/></svg>

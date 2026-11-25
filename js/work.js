@@ -4,7 +4,7 @@
    ========================================================= */
 (function () {
   'use strict';
-  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, bindText, tagList, revealText, aiInfo, stageStamp } = window.Log;
+  const { h, icon, loadData, publishedWorks, safeUrl, isExternal, youtubeId, bindText, tagList, revealText, aiInfo, stageStamp, platformsOf, platformTags, playButton } = window.Log;
   const $ = (id) => document.getElementById(id);
 
   const params = new URLSearchParams(location.search);
@@ -64,7 +64,8 @@
     body.push(h('header', { class: 'work-head' },
       (w.genre || w.stage) ? h('p', { class: 'work-head__genre' }, w.genre || null, stageStamp(w)) : null,
       h('h1', { class: 'work-head__title', text: w.title || w.id }),
-      w.subtitle ? h('p', { class: 'work-head__subtitle', text: w.subtitle }) : null));
+      w.subtitle ? h('p', { class: 'work-head__subtitle', text: w.subtitle }) : null,
+      (platformsOf(w).length || w.playUrl) ? h('div', { class: 'work-head__row' }, platformTags(w), playButton(w)) : null));
 
     // 動画 or メイン画像
     const media = buildMedia(w);
@@ -120,6 +121,7 @@
     ].filter(([, v]) => v).map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', { text: v })));
     const tagRows = [['使用言語', w.languages], ['技術・ライブラリ', w.tech], ['開発環境・ツール', w.tools]]
       .filter(([, v]) => v && v.length).map(([k, v]) => h('div', null, h('dt', { text: k }), h('dd', null, tagList(v))));
+    if (platformsOf(w).length) tagRows.unshift(h('div', null, h('dt', { text: '分類' }), h('dd', null, tagList(platformsOf(w).map((p) => p.label)))));
     if (ai) tagRows.push(h('div', null, h('dt', { text: 'AIの使用' }), h('dd', null,
       ai.none ? h('span', { class: 'ai-badge ai-badge--none', text: 'AI不使用' })
               : (ai.areas.length ? tagList(ai.areas) : h('span', { class: 'ai-badge ai-badge--used', text: 'AI使用' })))));
