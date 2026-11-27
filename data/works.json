@@ -67,8 +67,8 @@
     "title": "MACHINE BUSTER",
     "subtitle": "",
     "genre": "3Dアクションシューティング",
-    "thumbnail": "",
-    "summary": "",
+    "thumbnail": "images/works/machinebuster/keyvisual-logo-mwye0n5q.png",
+    "summary": "Steamへのリリースを目的に作った3Dアクションシューティング",
     "period": "2026.9 ～ 2026.11 (1ヵ月半)",
     "team": "個人製作",
     "role": "メインプログラマー",
@@ -86,7 +86,7 @@
       "Visual Studio",
       "Git"
     ],
-    "description": "",
+    "description": "Steamへのリリースを目標にし、自分が今AIを使ってどの程度のレベルのゲームを作れるかに挑戦してみた作品。",
     "responsibilities": [],
     "highlights": [],
     "challenges": [],
@@ -100,13 +100,24 @@
     "stage": "完成",
     "ai": {
       "none": false,
-      "uses": []
+      "uses": [
+        {
+          "area": "コード生成、設計の相談、コードレビュー・デバッグ相談",
+          "tool": "Claude",
+          "detail": "ほぼすべて"
+        },
+        {
+          "area": "画像・テクスチャ、3Dモデル",
+          "tool": "Claude",
+          "detail": "3Dモデルからアニメーション、ゲーム内のアイコンやイラストなどすべて"
+        }
+      ]
     },
     "platforms": [
       "unityroom",
       "directx"
     ],
-    "playUrl": ""
+    "playUrl": "https://unityroom.com/games/machine_buster"
   },
   {
     "published": true,
