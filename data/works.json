@@ -103,6 +103,7 @@
       "uses": []
     },
     "platforms": [
+      "unityroom",
       "directx"
     ],
     "playUrl": ""
